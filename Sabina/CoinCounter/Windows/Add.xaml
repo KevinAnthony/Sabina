@@ -1,0 +1,61 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="NoSideDynamics.CoinCounter.Windows.Add" 
+        MouseDown="OnDragMouseDown"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" 
+        Style="{StaticResource NsdWindowStyle}" 
+        ResizeMode="NoResize"
+        DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
+        Title="Add Coins"
+        Height="350" Width="250">
+    <Border BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="2">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="37" />
+                <RowDefinition Height="7" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Grid.ColumnSpan="2" x:Name="TitleBar" MouseDown="OnDragMouseDown">
+                <Button x:Name="CloseButton" DockPanel.Dock="Right"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" Content="X"
+                    FontSize="23" Click="CloseButton_Click" FontFamily="Segoe UI Symbol"
+                   Style="{StaticResource NsdButtonStyle}" BorderThickness="0"
+                    Padding="0" />
+                <Button x:Name="MinButton" DockPanel.Dock="Right"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Content="{StaticResource MinimizeWindow}" VerticalContentAlignment="Bottom" Click="MinButton_Click"
+                    Style="{StaticResource NsdButtonStyle}" BorderThickness="0" />
+                <TextBlock VerticalAlignment="Center" TextAlignment="Left"
+                       Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       Margin="7,0,0,0" MouseDown="OnDragMouseDown" />
+            </DockPanel>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Dollars" Width="75"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Quarter" Width="75"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Dime" Width="75"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Nickel" Width="75"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Penny" Width="75"/>
+
+            <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Loaded="OnLoaded" Text="{Binding DollarValue}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding QuarterValue}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding DimeValue}" />
+            <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding NickelValue}" />
+            <TextBox Grid.Column="1" Grid.Row="5" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding PennyValue}" />
+            <Button Grid.Column="0" Grid.Row="7" Width="88" Margin="0,3" Content="Save" IsDefault="True" Click="OnSave" />
+            <Button Grid.Column="1" Grid.Row="7" Width="88" Margin="0,3" Content="Cancel" IsCancel="True" Click="OnCancel" Style="{StaticResource NsdButtonStyle}"/>
+        </Grid>
+    </Border>
+</Window>

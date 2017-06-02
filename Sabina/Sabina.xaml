@@ -1,0 +1,75 @@
+﻿<Window x:Class="NoSideDynamics.Sabina"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:NoSideDynamics.CoinCounter.Models" 
+        WindowStartupLocation="CenterScreen"
+        SnapsToDevicePixels="True" 
+        ResizeMode="CanMinimize" 
+        MouseDown="OnDragMouseDown"
+        mc:Ignorable="d" 
+        Closing="MainWindow_OnClosing" 
+        Style="{StaticResource NsdWindowStyle}"
+        Title="Coin Counter Mk 4" 
+        Height="360" Width="625">
+    <Window.DataContext>
+        <models:CoinViewModel />
+    </Window.DataContext>
+    <Border BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="32" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" x:Name="TitleBar" MouseDown="OnDragMouseDown">
+                <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource NsdButtonStyle}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" Content="X"
+                    FontSize="23" Click="CloseButton_Click" FontFamily="Segoe UI Symbol"
+                   BorderThickness="0"
+                    Padding="0" />
+                <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource NsdButtonStyle}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Content="{StaticResource MinimizeWindow}" VerticalContentAlignment="Bottom" Click="MinButton_Click"
+                    BorderThickness="0" />
+                <TextBlock VerticalAlignment="Center" TextAlignment="Left"
+                       Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       Margin="7,0,0,0" MouseDown="OnDragMouseDown" />
+            </DockPanel>
+            <DockPanel Grid.Row="1">
+
+                <Button Content="Add" Click="OnAddCoins" Style="{StaticResource NsdButtonStyle}" Margin="3,0,0,0" />
+                <Button Content="Cash Rolls" Click="RollCoinsOnClick" Style="{StaticResource NsdButtonStyle}" Margin="3,0" />
+                <Button Content="Save" Click="OnSaveClicked"
+                    IsEnabled="{Binding Dirty, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource NsdButtonStyle}" />
+                <Rectangle MouseDown="OnDragMouseDown"/>
+
+
+            </DockPanel>
+            <StackPanel Grid.Row="2" x:Name="Panel" Orientation="Horizontal" />
+            <StackPanel Grid.Row="3" Orientation="Horizontal" MouseDown="OnDragMouseDown">
+                <Border Width="180" Margin="3,3,0,3" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="3,3,1,3" Padding="3,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Total Value :" />
+                        <TextBlock Text="{Binding TotalValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                    </StackPanel>
+                </Border>
+                <Border Width="180" Margin="0,3" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="0,3,0,3" Padding="3,0">
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Rolled Value :" />
+                        <TextBlock Text="{Binding RolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                    </StackPanel>
+                </Border>
+                <Border Width="220" Margin="0,3"  BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="1,3,3,3" Padding="3,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Unrolled Value :" />
+                        <TextBlock Text="{Binding UnrolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
