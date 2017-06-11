@@ -111,7 +111,7 @@ namespace NoSideDynamics.CoinCounter.Models
             this._spreadsheetId = id;
         }
 
-        public void Init()
+        public CoinViewModel()
         {
             Task.Factory.StartNew(() =>
             {
@@ -125,7 +125,7 @@ namespace NoSideDynamics.CoinCounter.Models
                 coin.PropertyChanged += this.CoinOnPropertyChanged;
             }
         }
-
+        
         public void LoadFromSpreadsheet()
         {
             if (this._spreadSheetsService == null)

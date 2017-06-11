@@ -83,7 +83,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CoinCounter\Controls\AddCoin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoinCounter\Controls\CashRolls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CoinCounter\Controls\CoinBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoinCounter\Controls\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,8 +119,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CoinCounter\Controls\AddCoin.xaml.cs">
+      <DependentUpon>AddCoin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoinCounter\Controls\CashRolls.xaml.cs">
+      <DependentUpon>CashRolls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoinCounter\Controls\CoinBox.xaml.cs">
       <DependentUpon>CoinBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoinCounter\Controls\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoinCounter\Models\Coin.cs" />
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
