@@ -1,0 +1,40 @@
+﻿<Window x:Class="Noside.Wyvern"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Noside.CoinCounter.Controls"
+        WindowStartupLocation="CenterScreen"
+        SnapsToDevicePixels="True" 
+        ResizeMode="CanMinimize" 
+        MouseDown="OnDragMouseDown"
+        mc:Ignorable="d" 
+        Closing="MainWindow_OnClosing" 
+        Style="{StaticResource NsdWindowStyle}"
+        Title="Coin Counter Mk 4" SizeToContent="WidthAndHeight"
+        Height="360">
+    <Border BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar" MouseDown="OnDragMouseDown">
+                <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource NsdButtonStyle}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" Content="X"
+                    FontSize="23" Click="CloseButton_Click" FontFamily="Segoe UI Symbol"
+                   BorderThickness="0"
+                    Padding="0" />
+                <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource NsdButtonStyle}"
+                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                    Content="{StaticResource MinimizeWindow}" VerticalContentAlignment="Bottom" Click="MinButton_Click"
+                    BorderThickness="0" />
+                <TextBlock VerticalAlignment="Center" TextAlignment="Left"
+                       Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       Margin="7,0,0,0" MouseDown="OnDragMouseDown" />
+            </DockPanel>
+            <controls:MainView Grid.Row="1" Grid.Column="0" x:Name="CoinView" />
+        </Grid>
+    </Border>
+</Window>
