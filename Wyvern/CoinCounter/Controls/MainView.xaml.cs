@@ -84,8 +84,6 @@ namespace Noside.CoinCounter.Controls
             {
                 Animation.AnimationSlide(RollColumn, null, AddColumn.ActualWidth, 0);
             }
-            AddCoin.Reset();
-            RollCoin.Reset();
         }
 
 

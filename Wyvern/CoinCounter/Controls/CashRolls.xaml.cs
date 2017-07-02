@@ -46,10 +46,6 @@ namespace Noside.CoinCounter.Controls
 
         #endregion
 
-        public void Reset()
-        {
-        }
-
         #region Methods
 
         /// <summary>
@@ -69,14 +65,14 @@ namespace Noside.CoinCounter.Controls
             var control = Parent as FrameworkElement;
             var model = control?.DataContext as CoinViewModel;
             if (model == null) return;
-            this.CoinGrid.Children.Clear();
+            this.TheGrid.Children.Clear();
             for (int index = 0; index < model.CoinList.Count; index++)
             {
                 var coin = model.CoinList[index];
-                this.CoinGrid.RowDefinitions.Add(new RowDefinition());
+                this.TheGrid.RowDefinitions.Add(new RowDefinition());
                 var box = new RollBox(coin);
                 Grid.SetRow(box, index);
-                this.CoinGrid.Children.Add(box);
+                this.TheGrid.Children.Add(box);
             }
         }
 

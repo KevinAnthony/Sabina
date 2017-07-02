@@ -6,29 +6,7 @@
              mc:Ignorable="d" Width="185" Margin="3" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
              d:DesignHeight="300" d:DesignWidth="250">
     <Border Background="{StaticResource PrimaryBrush}" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="4" CornerRadius="4">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Width="75" Height="24" Text="Dollars"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Width="75" Height="24" Text="Quarter"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Width="75" Height="24" Text="Dime"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Width="75" Height="24" Text="Nickel"/>
-            <TextBlock Grid.Column="0" Grid.Row="4" Width="75" Height="24" Text="Penny"/>
-
-            <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Loaded="OnLoaded" Text="{Binding DollarValue, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding QuarterValue, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding DimeValue, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding NickelValue, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource NsdTextBoxStyle}" HorizontalAlignment="Center" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Text="{Binding PennyValue, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid x:Name="TheGrid">
         </Grid>
     </Border>
 </UserControl>

@@ -91,6 +91,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CoinCounter\Controls\Component\AddBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CoinCounter\Controls\Component\CoinBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +124,9 @@
     </Compile>
     <Compile Include="CoinCounter\Controls\CashRolls.xaml.cs">
       <DependentUpon>CashRolls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoinCounter\Controls\Component\AddBox.xaml.cs">
+      <DependentUpon>AddBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoinCounter\Controls\Component\CoinBox.xaml.cs">
       <DependentUpon>CoinBox.xaml</DependentUpon>

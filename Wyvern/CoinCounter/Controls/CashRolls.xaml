@@ -13,7 +13,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="38"/>
             </Grid.RowDefinitions>
-        <Grid x:Name="CoinGrid" Margin="3"/>
+        <Grid x:Name="TheGrid" Margin="3"/>
             <Button Grid.Row="1" Margin="3" Content="Cash Rolls" Style="{StaticResource NsdButtonStyle}" Click="OnCashRollsClick"/>
         </Grid>
     </Border>
