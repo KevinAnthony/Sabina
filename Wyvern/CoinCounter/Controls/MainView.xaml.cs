@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Noside.CoinCounter.Models;
 using Noside.Common.Helpers.Ui;
 
@@ -56,21 +57,15 @@ namespace Noside.CoinCounter.Controls
 
         private void OnAddCoins(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
             if (AddColumn.ActualWidth.Equals(0))
             {
-                AddColumn.AnimateWidth(0, AddCoin.Width + AddCoin.Margin.Left + AddCoin.Margin.Right);
+                Animation.AnimationSlide(AddColumn,button, 0, AddCoin.Width + AddCoin.Margin.Left + AddCoin.Margin.Right);
             }
             else
             {
-                AddColumn.AnimateWidth(AddColumn.ActualWidth, 0);
+                Animation.AnimationSlide(AddColumn, button, AddColumn.ActualWidth, 0);
             }
-//
-//            Add addWindow = new Add();
-//            if (addWindow.ShowDialog() ?? false)
-//            {
-//                ((CoinViewModel) this.DataContext).AddCoins((uint) addWindow.DollarValue, (uint) addWindow.QuarterValue,
-//                    (uint) addWindow.DimeValue, (uint) addWindow.NickelValue, (uint) addWindow.PennyValue);
-//            }
         }
 
         private void OnSaveClicked(object sender, RoutedEventArgs e)
@@ -83,11 +78,11 @@ namespace Noside.CoinCounter.Controls
         {
             if (!AddColumn.ActualWidth.Equals(0))
             {
-                AddColumn.AnimateWidth(AddColumn.ActualWidth, 0);
+                Animation.AnimationSlide(AddColumn, null, AddColumn.ActualWidth, 0);
             }
             if (!RollColumn.ActualWidth.Equals(0))
             {
-                RollColumn.AnimateWidth(RollColumn.ActualWidth, 0);
+                Animation.AnimationSlide(RollColumn, null, AddColumn.ActualWidth, 0);
             }
             AddCoin.Reset();
             RollCoin.Reset();
@@ -96,22 +91,15 @@ namespace Noside.CoinCounter.Controls
 
         private void OnRollCoins(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
             if (RollColumn.ActualWidth.Equals(0))
             {
-                RollColumn.AnimateWidth(0, RollCoin.Width + RollCoin.Margin.Left + RollCoin.Margin.Right);
+                Animation.AnimationSlide(RollColumn, button, 0, RollCoin.Width + RollCoin.Margin.Left + RollCoin.Margin.Right);
             }
             else
             {
-                RollColumn.AnimateWidth(RollCoin.ActualWidth, 0);
+                Animation.AnimationSlide(RollColumn, button, RollCoin.ActualWidth, 0);
             }
-//            CoinViewModel cvm = (CoinViewModel) this.DataContext;
-//            Roll rollWindow = new Roll(cvm.CoinList[0].RollsToCash, cvm.CoinList[1].RollsToCash,
-//                cvm.CoinList[2].RollsToCash, cvm.CoinList[3].RollsToCash, cvm.CoinList[4].RollsToCash);
-//            if (rollWindow.ShowDialog() ?? false)
-//            {
-//                cvm.CashRolls(rollWindow.DollarCashed, rollWindow.QuarterCashed, rollWindow.DimeCashed,
-//                    rollWindow.NickelCashed, rollWindow.PennyCashed);
-//            }
         }
 
         #endregion

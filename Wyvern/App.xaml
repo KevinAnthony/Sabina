@@ -92,11 +92,12 @@
         <Style x:Key="NsdButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderBrush" Value="{StaticResource TextAndLineBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource TextAndLineBrush}"/>
+            <Setter Property="Background" Value="#01000000"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="#01000000">
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                             <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="7,2"/>
                         </Border>
                         <ControlTemplate.Triggers>

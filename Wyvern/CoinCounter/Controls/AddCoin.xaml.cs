@@ -23,7 +23,6 @@ namespace Noside.CoinCounter.Controls
         private int _nickelValue;
         private int _pennyValue;
         private int _quarterValue;
-        private object _viewModel;
 
         public void Reset()
         {

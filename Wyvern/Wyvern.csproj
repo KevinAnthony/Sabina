@@ -91,7 +91,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CoinCounter\Controls\CoinBox.xaml">
+    <Page Include="CoinCounter\Controls\Component\CoinBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CoinCounter\Controls\RollBox.xaml">
+    <Page Include="CoinCounter\Controls\Component\RollBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,20 +121,19 @@
     <Compile Include="CoinCounter\Controls\CashRolls.xaml.cs">
       <DependentUpon>CashRolls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CoinCounter\Controls\CoinBox.xaml.cs">
+    <Compile Include="CoinCounter\Controls\Component\CoinBox.xaml.cs">
       <DependentUpon>CoinBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CoinCounter\Controls\CountButton.cs" />
     <Compile Include="CoinCounter\Controls\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CoinCounter\Controls\RollBox.xaml.cs">
+    <Compile Include="CoinCounter\Controls\Component\RollBox.xaml.cs">
       <DependentUpon>RollBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoinCounter\Converters\IsRollMaxConverter.cs" />
     <Compile Include="CoinCounter\Models\Coin.cs" />
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
-    <Compile Include="Common\Helpers\Ui\Animate.cs" />
+    <Compile Include="Common\Helpers\Ui\Animation.cs" />
     <Compile Include="Common\Helpers\Animation\GridLengthAnimation.cs" />
     <Compile Include="Common\Windows\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
