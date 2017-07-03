@@ -219,9 +219,7 @@ namespace Noside.CoinCounter.Models
             if (coinsRolled > coin.Count) return;
             if (coin.Count - coinsRolled < coin.CoinsPerRoll)
             {
-                MessageBox.Show(
-                    string.Format(Resources.CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll, coin.Name, Environment.NewLine), Resources.Generic_Error,
-                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Common.Windows.MessageBox.Show(string.Format(Resources.CoinViewModel_NotEnoughCoins, coin.Name, Environment.NewLine), Resources.Generic_Error,MessageBoxButton.OK);
             }
             coin.RollsToCash++;
         }
