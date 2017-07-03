@@ -59,5 +59,41 @@ namespace Noside.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count Mismatch.
+        /// </summary>
+        internal static string CoinViewModel_AddCoins_Count_Mismatch {
+            get {
+                return ResourceManager.GetString("CoinViewModel_AddCoins_Count_Mismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Roll {0}&apos;s{1}Not Enough Coins To Roll.
+        /// </summary>
+        internal static string CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll {
+            get {
+                return ResourceManager.GetString("CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string CoinViewModel_Roll_Error {
+            get {
+                return ResourceManager.GetString("CoinViewModel_Roll_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin Counts.
+        /// </summary>
+        internal static string Sheet_Name {
+            get {
+                return ResourceManager.GetString("Sheet Name", resourceCulture);
+            }
+        }
     }
 }

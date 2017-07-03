@@ -114,4 +114,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CoinViewModel_AddCoins_Count_Mismatch" xml:space="preserve">
+    <value>Count Mismatch</value>
+  </data>
+  <data name="CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll" xml:space="preserve">
+    <value>Cannot Roll {0}'s{1}Not Enough Coins To Roll</value>
+    <comment>{0} is the name of the coin 
+{1} is a new line char</comment>
+  </data>
+  <data name="CoinViewModel_Roll_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Sheet Name" xml:space="preserve">
+    <value>Coin Counts</value>
+  </data>
 </root>

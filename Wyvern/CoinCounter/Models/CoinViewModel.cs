@@ -19,6 +19,8 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
+using Noside.Common.Helpers;
+using Noside.Properties;
 
 #endregion
 
@@ -33,7 +35,7 @@ namespace Noside.CoinCounter.Models
             Load();
             foreach (var coin in CoinList)
             {
-                if (coin.Value.Equals(1.00f)) continue;
+//                if (coin.Value.Equals(1.00f)) continue;
                 coin.PropertyChanged += CoinOnPropertyChanged;
             }
         }
@@ -66,8 +68,8 @@ namespace Noside.CoinCounter.Models
 
         #region Fields
 
-        private const string ApplicationName = "Coin Counter Mk.4";
-        private const string SheetName = "Coin Counts";
+        private string ApplicationName = "Coin Counter Mk.4";
+        private readonly string _sheetName = Resources.Sheet_Name;
         private readonly string[] _scopes = {SheetsService.Scope.Spreadsheets, DriveService.Scope.DriveReadonly};
         private UserCredential _credential;
         private string _spreadsheetId = "1FOnkhoTo_h3gs-T9jgAjPyUVyxOLdtc0PieGkKIfZtQ";
@@ -79,6 +81,7 @@ namespace Noside.CoinCounter.Models
 
         public ObservableCollection<Coin> CoinList { get; set; } = new ObservableCollection<Coin>
         {
+            //TODO: L10n this (somehow)
             new Coin("Dollar", 1.00f, 25),
             new Coin("Quarter", 0.25f, 40),
             new Coin("Dime", 0.10f, 50),
@@ -102,32 +105,23 @@ namespace Noside.CoinCounter.Models
 
         #region Public Methods
 
-        public void AddCoins(uint dollarValue, uint quarterValue, uint dimeValue, uint nickelValue, uint pennyValue)
+        public void AddCoins(params uint[] values)
         {
-            CoinList[0].Count += dollarValue;
-            CoinList[1].Count += quarterValue;
-            CoinList[2].Count += dimeValue;
-            CoinList[3].Count += nickelValue;
-            CoinList[4].Count += pennyValue;
+            if (values.Length != CoinList.Count) throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
+            for (var index = 0; index < values.Length; index++)
+            {
+                CoinList[index].Count += values[index];
+            }
         }
 
-        public void CashRolls(uint dollar, uint quarter, uint dime, uint nickel, uint penny)
+        public void CashRolls(params uint[] values)
         {
-            CoinList[0].RollsToCash -= dollar;
-            CoinList[0].Count -= dollar*CoinList[0].CoinsPerRoll;
-            CoinList[1].RollsToCash -= quarter;
-            CoinList[1].Count -= quarter*CoinList[1].CoinsPerRoll;
-            CoinList[2].RollsToCash -= dime;
-            CoinList[2].Count -= dime*CoinList[2].CoinsPerRoll;
-            CoinList[3].RollsToCash -= nickel;
-            CoinList[3].Count -= nickel*CoinList[3].CoinsPerRoll;
-            CoinList[4].RollsToCash -= penny;
-            CoinList[4].Count -= penny*CoinList[4].CoinsPerRoll;
-
-            CoinList[0].Count += Convert.ToUInt32(quarter*CoinList[1].CoinsPerRoll*CoinList[1].Value);
-            CoinList[0].Count += Convert.ToUInt32(dime*CoinList[2].CoinsPerRoll*CoinList[2].Value);
-            CoinList[0].Count += Convert.ToUInt32(nickel*CoinList[3].CoinsPerRoll*CoinList[3].Value);
-            CoinList[0].Count += Convert.ToUInt32(penny*CoinList[4].CoinsPerRoll*CoinList[4].Value);
+            if (values.Length != CoinList.Count) throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
+            for (var index = 0; index < values.Length; index++)
+            {
+                CoinList[index].RollsToCash -= values[index];
+                CoinList[index].Count -= values[index] * CoinList[index].CoinsPerRoll;
+            }
         }
 
         public async Task FindSpreadsheetId()
@@ -141,7 +135,7 @@ namespace Noside.CoinCounter.Models
             var request = await listRequest.ExecuteAsync();
             var files = request.Files;
             var id =
-                files.Where(file => file.Name.Equals(SheetName, StringComparison.OrdinalIgnoreCase))
+                files.Where(file => file.Name.Equals(_sheetName, StringComparison.OrdinalIgnoreCase))
                     .Select(file => file.Id)
                     .FirstOrDefault();
             if (string.IsNullOrWhiteSpace(id))
@@ -163,8 +157,8 @@ namespace Noside.CoinCounter.Models
                         ApplicationName = ApplicationName
                     });
                 }
-
-                const string range = "B2:F3";
+                //Since B is inusive, Subtract one
+                string range = $"B2:{(char)('B' + (CoinList.Count - 1))}3";
                 var response = await _spreadSheetsService.Spreadsheets.Values.Get(_spreadsheetId, range).ExecuteAsync();
 
                 var values = response.Values;
@@ -219,7 +213,8 @@ namespace Noside.CoinCounter.Models
             if (coinsRolled > coin.Count) return;
             if (coin.Count - coinsRolled < coin.CoinsPerRoll)
             {
-                MessageBox.Show($"Cannot Roll {coin.Name}'s{Environment.NewLine}Not Enough Coins To Roll", "Error",
+                MessageBox.Show(
+                    string.Format(Resources.CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll, coin.Name, Environment.NewLine), Resources.CoinViewModel_Roll_Error,
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             coin.RollsToCash++;
@@ -227,31 +222,20 @@ namespace Noside.CoinCounter.Models
 
         public async void Save()
         {
+            //since b is inusive, Subtract one
+            char b = (char)('B' + (CoinList.Count - 1));  
+            var r = $"B2:{b}3";
             var range = new ValueRange
             {
                 Values = new List<IList<object>>
                 {
-                    new List<object>
-                    {
-                        CoinList[0].Count,
-                        CoinList[1].Count,
-                        CoinList[2].Count,
-                        CoinList[3].Count,
-                        CoinList[4].Count
-                    },
-                    new List<object>
-                    {
-                        CoinList[0].RollsToCash,
-                        CoinList[1].RollsToCash,
-                        CoinList[2].RollsToCash,
-                        CoinList[3].RollsToCash,
-                        CoinList[4].RollsToCash
-                    }
+                    CoinList.Select(coin => coin.Count).Cast<object>().ToList(),
+                    CoinList.Select(coin => coin.RollsToCash).Cast<object>().ToList()
                 },
-                Range = "B2:F3"
+                Range = r
             };
 
-            var request = _spreadSheetsService.Spreadsheets.Values.Update(range, _spreadsheetId, "B2:F3");
+            var request = _spreadSheetsService.Spreadsheets.Values.Update(range, _spreadsheetId,r);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
             await request.ExecuteAsync();
             Clean();
@@ -287,43 +271,50 @@ namespace Noside.CoinCounter.Models
                 HttpClientInitializer = _credential,
                 ApplicationName = ApplicationName
             });
-            var sheet = new Spreadsheet {Properties = new SpreadsheetProperties {Title = SheetName}};
+            var sheet = new Spreadsheet {Properties = new SpreadsheetProperties {Title = _sheetName}};
             var id = (await _spreadSheetsService.Spreadsheets.Create(sheet).ExecuteAsync()).SpreadsheetId;
 
-            const string range = "A1:J6";
+            // Left Column, Coins, Space, Total value, Total Rolled
+            var count = CoinList.Count + 4;
+
+            string range = $"A1:{(char)('A' + count - 1)}6";
+            var header = new object[count].Init("");
+            var counts = new object[count].Init("");
+            var rolls = new object[count].Init("");
+            var values = new object[count].Init("");
+            var spaces = new object[count].Init("");
+            var wraps = new object[count].Init("");
+
+            counts[0] = "Counts";
+            rolls[0] = "Rolls To Cash";
+            values[0] = "Value";
+            values[CoinList.Count + 2] = "Total";
+            spaces[CoinList.Count + 2] = $"=sum(B4:{(char)('B' + (CoinList.Count - 1))}4)";
+            values[CoinList.Count + 3] = "Total Rolled";
+            spaces[CoinList.Count + 3] = "=";
+            wraps[0] = "Required Wraps";
+            for (var i = 0; i < this.CoinList.Count; i++)
+            {
+                var coin = this.CoinList[i];
+                header[i + 1] = coin.Name;
+                counts[i + 1] = coin.Count;
+                rolls[i + 1] = coin.RollsToCash;
+                char c = (char) ('B' + i);
+                values[i + 1] = $"={c}2 * {coin.Value}";
+                wraps[i + 1] = $"={c}2 / {coin.CoinsPerRoll} - {c}3";
+                spaces[CoinList.Count + 3] += $"({c}3 * {coin.Value * coin.CoinsPerRoll}) + ";
+            }
+            
+            spaces[CoinList.Count + 3] = ((string)spaces[CoinList.Count + 3]).Trim(' ', '+');
 
             IList<IList<object>> list = new List<IList<object>>
             {
-                new List<object> {"", "Dollars", "Quarters", "Dimes", "Nickels", "Pennies", "", "", "", ""},
-                new List<object> {"Counts", "0", "0", "0", "0", "0", "", "", "", ""},
-                new List<object> {"Rolls To Cash", "0", "0", "0", "0", "0", "", "", "", ""},
-                new List<object>
-                {
-                    "Value",
-                    "=B2*1",
-                    "=C2*0.25",
-                    "=D2*0.10",
-                    "=E2*0.05",
-                    "=F2*0.01",
-                    "",
-                    "Total",
-                    "",
-                    "Total Rolled"
-                },
-                new List<object> {"", "", "", "", "", "", "", "=sum(B4:F4)", "", "=B3*25+C3*10+D3*5+E3*2+F3*0.5"},
-                new List<object>
-                {
-                    "Required Wraps",
-                    "=B2/25",
-                    "=C2/40-C3",
-                    "=D2/40-D3",
-                    "=E2/40-E3",
-                    "=F2/40-F3",
-                    "",
-                    "",
-                    "",
-                    ""
-                }
+                header,
+                counts,
+                rolls,
+                values,
+                spaces,
+                wraps
             };
 
             var valueRange = new ValueRange
