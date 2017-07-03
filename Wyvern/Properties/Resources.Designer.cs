@@ -61,6 +61,15 @@ namespace Noside.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [{&quot;name&quot;:&quot;Dollar&quot;,&quot;value&quot;:1,&quot;perRoll&quot;:25},{&quot;name&quot;:&quot;Quarter&quot;,&quot;value&quot;:0.25,&quot;perRoll&quot;:40},{&quot;name&quot;:&quot;Dime&quot;,&quot;value&quot;:0.1,&quot;perRoll&quot;:50},{&quot;name&quot;:&quot;Nickel&quot;,&quot;value&quot;:0.05,&quot;perRoll&quot;:40},{&quot;name&quot;:&quot;Penny&quot;,&quot;value&quot;:0.01,&quot;perRoll&quot;:50}].
+        /// </summary>
+        internal static string Coins {
+            get {
+                return ResourceManager.GetString("Coins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count Mismatch.
         /// </summary>
         internal static string CoinViewModel_AddCoins_Count_Mismatch {
@@ -81,9 +90,9 @@ namespace Noside.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string CoinViewModel_Roll_Error {
+        internal static string Generic_Error {
             get {
-                return ResourceManager.GetString("CoinViewModel_Roll_Error", resourceCulture);
+                return ResourceManager.GetString("Generic_Error", resourceCulture);
             }
         }
         
@@ -92,7 +101,7 @@ namespace Noside.Properties {
         /// </summary>
         internal static string Sheet_Name {
             get {
-                return ResourceManager.GetString("Sheet Name", resourceCulture);
+                return ResourceManager.GetString("Sheet_Name", resourceCulture);
             }
         }
     }

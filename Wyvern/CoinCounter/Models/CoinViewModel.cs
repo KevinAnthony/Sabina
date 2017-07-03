@@ -19,6 +19,8 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Noside.Common.Helpers;
 using Noside.Properties;
 
@@ -35,7 +37,6 @@ namespace Noside.CoinCounter.Models
             Load();
             foreach (var coin in CoinList)
             {
-//                if (coin.Value.Equals(1.00f)) continue;
                 coin.PropertyChanged += CoinOnPropertyChanged;
             }
         }
@@ -50,9 +51,23 @@ namespace Noside.CoinCounter.Models
 
         private async void Load()
         {
+            ParseCoinList();
             await Login();
             await FindSpreadsheetId();
             await LoadFromSpreadsheet();
+        }
+
+        private void ParseCoinList()
+        {
+            foreach (var token in JArray.Parse(Resources.Coins))
+            {
+                var jobj = (JObject)token;
+                
+                string name = ((JValue)jobj["name"]).Value as string;
+                float value = Convert.ToSingle(((JValue)jobj["value"]).Value);
+                uint perRoll = Convert.ToUInt32(((JValue)jobj["perRoll"]).Value);
+                this.CoinList.Add(new Coin(name, value, perRoll));
+            }
         }
 
         public async void Reset()
@@ -79,16 +94,7 @@ namespace Noside.CoinCounter.Models
 
         #region Properties
 
-        public ObservableCollection<Coin> CoinList { get; set; } = new ObservableCollection<Coin>
-        {
-            //TODO: L10n this (somehow)
-            new Coin("Dollar", 1.00f, 25),
-            new Coin("Quarter", 0.25f, 40),
-            new Coin("Dime", 0.10f, 50),
-            new Coin("Nickel", 0.05f, 40),
-            new Coin("Penny", 0.01f, 50),
-
-        };
+        public ObservableCollection<Coin> CoinList { get; set; } = new ObservableCollection<Coin>();
 
         public bool Dirty
         {
@@ -214,7 +220,7 @@ namespace Noside.CoinCounter.Models
             if (coin.Count - coinsRolled < coin.CoinsPerRoll)
             {
                 MessageBox.Show(
-                    string.Format(Resources.CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll, coin.Name, Environment.NewLine), Resources.CoinViewModel_Roll_Error,
+                    string.Format(Resources.CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll, coin.Name, Environment.NewLine), Resources.Generic_Error,
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             coin.RollsToCash++;
