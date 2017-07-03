@@ -83,7 +83,8 @@ namespace Noside.CoinCounter.Models
             new Coin("Quarter", 0.25f, 40),
             new Coin("Dime", 0.10f, 50),
             new Coin("Nickel", 0.05f, 40),
-            new Coin("Penny", 0.01f, 50)
+            new Coin("Penny", 0.01f, 50),
+
         };
 
         public bool Dirty
@@ -189,18 +190,25 @@ namespace Noside.CoinCounter.Models
 
         public async Task Login()
         {
-            using (var stream =
-                new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            try
             {
-                var credPath = Environment.GetFolderPath(
-                    Environment.SpecialFolder.Personal);
-                credPath = Path.Combine(credPath, ".credentials/sheets.googleapis.com-dotnet-quickstart.json");
+                using (var stream =
+                    new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+                {
+                    var credPath = Environment.GetFolderPath(
+                        Environment.SpecialFolder.Personal);
+                    credPath = Path.Combine(credPath, ".credentials/sheets.googleapis.com-dotnet-quickstart.json");
 
-                _credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets, _scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true));
+                    _credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets, _scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true));
+                }
+            }
+            catch (Exception)
+            {
+                
             }
         }
 
