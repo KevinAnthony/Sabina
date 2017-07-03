@@ -133,6 +133,7 @@
     <Compile Include="CoinCounter\Models\Coin.cs" />
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
     <Compile Include="Common\Helpers\Extensions.cs" />
+    <Compile Include="Common\Helpers\Ui\Theme.cs" />
     <Compile Include="Common\Helpers\Ui\Animation.cs" />
     <Compile Include="Common\Helpers\Animation\GridLengthAnimation.cs" />
     <Compile Include="Common\Windows\MessageBox.xaml.cs">

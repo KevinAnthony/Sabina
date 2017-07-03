@@ -35,6 +35,8 @@ namespace Noside.Common.Helpers.Ui
                 column.AnimateWidth(from, to);
                 return;
             }
+
+            
             var brush = (SolidColorBrush) button.Background;
             var color = brush.Color;
             if (brush.IsFrozen || brush.IsSealed)
@@ -44,7 +46,7 @@ namespace Noside.Common.Helpers.Ui
             }
 
             //Todo: Extract Highlight color and use it here
-            var flashColor = Colors.LightBlue;
+            var flashColor = Theme.HighlightColor;
 
             ColorAnimationUsingKeyFrames flash = new ColorAnimationUsingKeyFrames();
 
