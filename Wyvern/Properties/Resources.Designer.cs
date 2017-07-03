@@ -81,9 +81,9 @@ namespace Noside.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cannot Roll {0}&apos;s{1}Not Enough Coins To Roll.
         /// </summary>
-        internal static string CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll {
+        internal static string CoinViewModel_NotEnoughCoins {
             get {
-                return ResourceManager.GetString("CoinViewModel_Roll_Cannot_Roll__0__s_1_Not_Enough_Coins_To_Roll", resourceCulture);
+                return ResourceManager.GetString("CoinViewModel_NotEnoughCoins", resourceCulture);
             }
         }
         

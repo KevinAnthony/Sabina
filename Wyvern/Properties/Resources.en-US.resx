@@ -119,14 +119,12 @@
   </resheader>
   <data name="Coins" xml:space="preserve">
     <value>[{"name":"Dollar","value":1,"perRoll":25},{"name":"Quarter","value":0.25,"perRoll":40},{"name":"Dime","value":0.1,"perRoll":50},{"name":"Nickel","value":0.05,"perRoll":40},{"name":"Penny","value":0.01,"perRoll":50}]</value>
-    <comment>json format array[obj{name, value, perRoll},...]</comment>
   </data>
   <data name="CoinViewModel_AddCoins_Count_Mismatch" xml:space="preserve">
     <value>Count Mismatch</value>
   </data>
   <data name="CoinViewModel_NotEnoughCoins" xml:space="preserve">
     <value>Cannot Roll {0}'s{1}Not Enough Coins To Roll</value>
-    <comment>Cannot Roll {0}'s{1}Not Enough Coins To Roll</comment>
   </data>
   <data name="Generic_Error" xml:space="preserve">
     <value>Error</value>
