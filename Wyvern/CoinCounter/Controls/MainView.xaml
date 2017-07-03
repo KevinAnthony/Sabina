@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="809"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition x:Name="AddColumn" Width="0"/>
             <ColumnDefinition x:Name="RollColumn" Width="0"/>
         </Grid.ColumnDefinitions>
