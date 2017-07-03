@@ -19,11 +19,10 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Noside.Common.Helpers;
 using Noside.Properties;
-
+using MessageBox = Noside.Common.Windows.MessageBox;
 #endregion
 
 namespace Noside.CoinCounter.Models
@@ -52,9 +51,22 @@ namespace Noside.CoinCounter.Models
         private async void Load()
         {
             ParseCoinList();
-            await Login();
-            await FindSpreadsheetId();
-            await LoadFromSpreadsheet();
+            //Don't get real values if in desingner mode!
+            if (!DesignerProperties.GetIsInDesignMode(new DependencyObject())) 
+            {
+                await Login();
+                await FindSpreadsheetId();
+                await LoadFromSpreadsheet();
+            }
+            else
+            {
+                foreach (var coin in CoinList)
+                {
+                    coin.Count = 100;
+                    coin.RollsToCash = 1;
+                }
+            }
+ 
         }
 
         private void ParseCoinList()
@@ -219,7 +231,7 @@ namespace Noside.CoinCounter.Models
             if (coinsRolled > coin.Count) return;
             if (coin.Count - coinsRolled < coin.CoinsPerRoll)
             {
-                Common.Windows.MessageBox.Show(string.Format(Resources.CoinViewModel_NotEnoughCoins, coin.Name, Environment.NewLine), Resources.Generic_Error,MessageBoxButton.OK);
+                MessageBox.Show(string.Format(Resources.CoinViewModel_NotEnoughCoins, coin.Name, Environment.NewLine), Resources.Generic_Error,MessageBoxButton.OK);
             }
             coin.RollsToCash++;
         }

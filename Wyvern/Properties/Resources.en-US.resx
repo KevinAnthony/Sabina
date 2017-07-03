@@ -132,4 +132,34 @@
   <data name="Sheet_Name" xml:space="preserve">
     <value>Coin Counts</value>
   </data>
+  <data name="Generic_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Wyvern_MainWindow_OnClosing_Save_Results_" xml:space="preserve">
+    <value>Save Results?</value>
+  </data>
+  <data name="Generic_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="CoinCounter_MainView_CashRolls" xml:space="preserve">
+    <value>Cash Rolls</value>
+  </data>
+  <data name="Generic_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="CoinCounter_MainView_TotalValue" xml:space="preserve">
+    <value>Total Value :</value>
+  </data>
+  <data name="CoinCounter_MainView_RolledValue" xml:space="preserve">
+    <value>Rolled Value :</value>
+  </data>
+  <data name="CoinCounter_MainView_UnrolledValue" xml:space="preserve">
+    <value>Unrolled Value :</value>
+  </data>
+  <data name="Generic_Roll" xml:space="preserve">
+    <value>Roll</value>
+  </data>
+  <data name="CoinCounter_CashRolls_CashRolls" xml:space="preserve">
+    <value>Cash Rolls</value>
+  </data>
 </root>

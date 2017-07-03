@@ -34,7 +34,7 @@ namespace Noside
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             if (!CoinView.Dirty) return;
-            var result = MessageBox.Show("Save Results?", "Save", MessageBoxButton.YesNoCancel);
+            var result = MessageBox.Show(Properties.Resources.Wyvern_MainWindow_OnClosing_Save_Results_, Properties.Resources.Generic_Save, MessageBoxButton.YesNoCancel);
             if (result == MessageBoxResult.Cancel) e.Cancel = true;
             if (result == MessageBoxResult.Yes) ((CoinViewModel) DataContext).Save();
         }

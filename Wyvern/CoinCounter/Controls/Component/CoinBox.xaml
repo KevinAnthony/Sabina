@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  Height="250"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Properties="clr-namespace:Noside.Properties"
+             Height="250"
              mc:Ignorable="d" FontWeight="DemiBold" Typography.Capitals="SmallCaps"
              Foreground="{StaticResource TextAndLineBrush}" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"> 
     <UserControl.Resources>
@@ -45,7 +47,7 @@
                 </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource NsdButtonStyle}" HorizontalContentAlignment="Center" IsTabStop="{Binding Path=Coin.Rollable}" Focusable="{Binding Path=Coin.Rollable}" FontSize="18"
-                    Height="32" Margin="25,3" Content="Roll" Click="OnRollCoinsClicked" Visibility="{Binding Path=Coin.Rollable, Converter={StaticResource BoolVisibilityConverter}}"/>
+                    Height="32" Margin="25,3" Content="{x:Static Properties:Resources.Generic_Roll}" Click="OnRollCoinsClicked" Visibility="{Binding Path=Coin.Rollable, Converter={StaticResource BoolVisibilityConverter}}"/>
         </StackPanel>
 
     </Border>
