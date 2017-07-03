@@ -45,7 +45,6 @@ namespace Noside.Common.Helpers.Ui
                 button.Background = brush;
             }
 
-            //Todo: Extract Highlight color and use it here
             var flashColor = Theme.HighlightColor;
 
             ColorAnimationUsingKeyFrames flash = new ColorAnimationUsingKeyFrames();
