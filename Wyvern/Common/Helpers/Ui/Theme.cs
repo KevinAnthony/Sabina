@@ -4,6 +4,7 @@
 
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Noside.Common.Helpers.Ui
 {
@@ -20,5 +21,6 @@ namespace Noside.Common.Helpers.Ui
         public static SolidColorBrush HighlightBrush { get; set; } = Application.Current.Resources[nameof(HighlightBrush)] as SolidColorBrush;
 
         public static SolidColorBrush TextAndLineBrush { get; set; } = Application.Current.Resources[nameof(TextAndLineBrush)] as SolidColorBrush;
+        public static Path Icon { get; set; } = Application.Current.Resources[nameof(Icon)] as Path;
     }
 }

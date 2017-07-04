@@ -3,7 +3,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Noside.CoinCounter.Models;
+using Noside.Common.Helpers.Ui;
 using MessageBox = Noside.Common.Windows.MessageBox;
 
 #endregion
@@ -19,7 +22,7 @@ namespace Noside
 
         public Wyvern()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         #endregion
