@@ -3,10 +3,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Noside.CoinCounter.Models;
-using Noside.Common.Helpers.Ui;
 using MessageBox = Noside.Common.Windows.MessageBox;
 
 #endregion
@@ -31,26 +28,26 @@ namespace Noside
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            if (!CoinView.Dirty) return;
-            var result = MessageBox.Show(Properties.Resources.Wyvern_MainWindow_OnClosing_Save_Results_, Properties.Resources.Generic_Save, MessageBoxButton.YesNoCancel);
+            if (!this.CoinView.Dirty) return;
+            MessageBoxResult result = MessageBox.Show(Properties.Resources.Wyvern_MainWindow_OnClosing_Save_Results_, Properties.Resources.Generic_Save, MessageBoxButton.YesNoCancel);
             if (result == MessageBoxResult.Cancel) e.Cancel = true;
-            if (result == MessageBoxResult.Yes) ((CoinViewModel) DataContext).Save();
+            if (result == MessageBoxResult.Yes) ((CoinViewModel) this.DataContext).Save();
         }
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
 
         private void OnDragMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton != MouseButtonState.Pressed) return;
-            DragMove();
+            this.DragMove();
         }
 
         #endregion

@@ -5,11 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Noside.Common.Helpers.Animation;
+using Noside.Common.Animation;
 
 #endregion
 
-namespace Noside.Common.Helpers.Ui
+namespace Noside.Common.Ui
 {
     internal static class Animation
     {
@@ -21,12 +21,6 @@ namespace Noside.Common.Helpers.Ui
         #endregion
 
         #region Public Methods
-        
-        private static void AnimateWidth(this ColumnDefinition column, double from, double to)
-        {
-            GridLengthAnimation animation = new GridLengthAnimation {Duration = SlideAnimationTime, From = from, To = to, EasingFunction = EasingFunction};
-            column.BeginAnimation(ColumnDefinition.WidthProperty, animation);
-        }
 
         public static void AnimationSlide(ColumnDefinition column, Button button, double from, double to)
         {
@@ -36,16 +30,16 @@ namespace Noside.Common.Helpers.Ui
                 return;
             }
 
-            
-            var brush = (SolidColorBrush) button.Background;
-            var color = brush.Color;
+
+            SolidColorBrush brush = (SolidColorBrush) button.Background;
+            Color color = brush.Color;
             if (brush.IsFrozen || brush.IsSealed)
             {
                 brush = new SolidColorBrush(color);
                 button.Background = brush;
             }
 
-            var flashColor = Theme.HighlightColor;
+            Color flashColor = Theme.HighlightColor;
 
             ColorAnimationUsingKeyFrames flash = new ColorAnimationUsingKeyFrames();
 
@@ -58,14 +52,19 @@ namespace Noside.Common.Helpers.Ui
             flash.KeyFrames.Add(new LinearColorKeyFrame(color, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(450))));
             flash.KeyFrames.Add(new LinearColorKeyFrame(flashColor, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(525))));
             flash.KeyFrames.Add(new LinearColorKeyFrame(color, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(600))));
-            flash.Completed += (s, a) =>
-            {
-                column.AnimateWidth(from, to);
-            };
+            flash.Completed += (s, a) => { column.AnimateWidth(from, to); };
             brush.BeginAnimation(SolidColorBrush.ColorProperty, flash);
         }
 
+        #endregion
 
+        #region Methods
+
+        private static void AnimateWidth(this ColumnDefinition column, double from, double to)
+        {
+            GridLengthAnimation animation = new GridLengthAnimation {Duration = SlideAnimationTime, From = from, To = to, EasingFunction = EasingFunction};
+            column.BeginAnimation(ColumnDefinition.WidthProperty, animation);
+        }
 
         #endregion
     }

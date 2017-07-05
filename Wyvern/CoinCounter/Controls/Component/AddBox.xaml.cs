@@ -32,8 +32,8 @@ namespace Noside.CoinCounter.Controls.Component
 
         public Coin WorkingCoin
         {
-            get => (Coin) GetValue(WorkingCoinProperty);
-            set => SetValue(WorkingCoinProperty, value);
+            get { return (Coin) GetValue(WorkingCoinProperty); }
+            set { SetValue(WorkingCoinProperty, value); } 
         }
 
         private void WorkingCoinOnPropertyChanged(object sender, PropertyChangedEventArgs args)

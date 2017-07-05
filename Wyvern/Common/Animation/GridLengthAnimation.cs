@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 
 #endregion
 
-namespace Noside.Common.Helpers.Animation
+namespace Noside.Common.Animation
 {
     internal class GridLengthAnimation : AnimationTimeline
     {

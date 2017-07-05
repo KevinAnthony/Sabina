@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Navigation;
-using Noside.Common.Helpers;
+using Noside.Common;
 
 #endregion
 
