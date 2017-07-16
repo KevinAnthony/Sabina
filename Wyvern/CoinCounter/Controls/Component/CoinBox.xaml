@@ -20,7 +20,7 @@
                         <TextBox BorderThickness="0" Padding="3,0" Margin="0" Style="{StaticResource NsdTextBoxStyle}" PreviewTextInput="TextBox_OnPreviewTextInput" DataObject.Pasting="TextBox_TextBoxPasting" GotFocus="OnGotFocus"  GotKeyboardFocus="OnGotFocus" GotMouseCapture="OnGotFocus" Loaded="OnLoaded" Text="{Binding Path=Coin.Count}"/>
                     </Border>
                     <Border BorderBrush="{StaticResource TextAndLineBrush}"  HorizontalAlignment="Center" Width="80" BorderThickness="2,1,2,2" Height="25" >
-                        <TextBlock Text="{Binding Path=Coin.Total, StringFormat=c}" HorizontalAlignment="Right" Margin="7,0"/>
+                        <TextBlock Text="{Binding Path=Coin.TotalValue, StringFormat=c}" HorizontalAlignment="Right" Margin="7,0"/>
                     </Border>
                 </StackPanel>
             </StackPanel>

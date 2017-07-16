@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using Noside.Common;
 using Noside.Properties;
 using MessageBox = Noside.Common.Windows.MessageBox;
+
 #endregion
 
 namespace Noside.CoinCounter.Models
@@ -52,7 +53,7 @@ namespace Noside.CoinCounter.Models
         {
             ParseCoinList();
             //Don't get real values if in desingner mode!
-            if (!DesignerProperties.GetIsInDesignMode(new DependencyObject())) 
+            if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
                 await Login();
                 await FindSpreadsheetId();
@@ -66,19 +67,18 @@ namespace Noside.CoinCounter.Models
                     coin.RollsToCash = 1;
                 }
             }
- 
         }
 
         private void ParseCoinList()
         {
             foreach (var token in JArray.Parse(Resources.Coins))
             {
-                var jobj = (JObject)token;
-                
-                string name = ((JValue)jobj["name"]).Value as string;
-                float value = Convert.ToSingle(((JValue)jobj["value"]).Value);
-                uint perRoll = Convert.ToUInt32(((JValue)jobj["perRoll"]).Value);
-                this.CoinList.Add(new Coin(name, value, perRoll));
+                var jobj = (JObject) token;
+
+                var name = ((JValue) jobj["name"]).Value as string;
+                var value = Convert.ToSingle(((JValue) jobj["value"]).Value);
+                var perRoll = Convert.ToUInt32(((JValue) jobj["perRoll"]).Value);
+                CoinList.Add(new Coin(name, value, perRoll));
             }
         }
 
@@ -95,7 +95,7 @@ namespace Noside.CoinCounter.Models
 
         #region Fields
 
-        private string ApplicationName = "Coin Counter Mk.4";
+        private readonly string ApplicationName = "Coin Counter Mk.4";
         private readonly string _sheetName = Resources.Sheet_Name;
         private readonly string[] _scopes = {SheetsService.Scope.Spreadsheets, DriveService.Scope.DriveReadonly};
         private UserCredential _credential;
@@ -115,7 +115,7 @@ namespace Noside.CoinCounter.Models
 
         public float RolledValue => CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.RolledValue);
 
-        public float TotalValue => CoinList.Sum(coin => coin.Total);
+        public float TotalValue => CoinList.Sum(coin => coin.TotalValue);
 
         public float UnrolledValue => CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.UnrolledValue);
 
@@ -125,7 +125,8 @@ namespace Noside.CoinCounter.Models
 
         public void AddCoins(params uint[] values)
         {
-            if (values.Length != CoinList.Count) throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
+            if (values.Length != CoinList.Count)
+                throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
             for (var index = 0; index < values.Length; index++)
             {
                 CoinList[index].Count += values[index];
@@ -134,7 +135,8 @@ namespace Noside.CoinCounter.Models
 
         public void CashRolls(params uint[] values)
         {
-            if (values.Length != CoinList.Count) throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
+            if (values.Length != CoinList.Count)
+                throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
             for (var index = 0; index < values.Length; index++)
             {
                 CoinList[index].RollsToCash -= values[index];
@@ -176,7 +178,7 @@ namespace Noside.CoinCounter.Models
                     });
                 }
                 //Since B is inusive, Subtract one
-                string range = $"B2:{(char)('B' + (CoinList.Count - 1))}3";
+                var range = $"B2:{(char) ('B' + (CoinList.Count - 1))}3";
                 var response = await _spreadSheetsService.Spreadsheets.Values.Get(_spreadsheetId, range).ExecuteAsync();
 
                 var values = response.Values;
@@ -220,18 +222,18 @@ namespace Noside.CoinCounter.Models
             }
             catch (Exception)
             {
-                
             }
         }
 
         public void Roll(Coin coin)
         {
             if (coin == null) return;
-            var coinsRolled = coin.CoinsPerRoll*coin.RollsToCash;
+            var coinsRolled = coin.CoinsPerRoll * coin.RollsToCash;
             if (coinsRolled > coin.Count) return;
             if (coin.Count - coinsRolled < coin.CoinsPerRoll)
             {
-                MessageBox.Show(string.Format(Resources.CoinViewModel_NotEnoughCoins, coin.Name, Environment.NewLine), Resources.Generic_Error,MessageBoxButton.OK);
+                MessageBox.Show(string.Format(Resources.CoinViewModel_NotEnoughCoins, coin.Name, Environment.NewLine),
+                    Resources.Generic_Error, MessageBoxButton.OK);
             }
             coin.RollsToCash++;
         }
@@ -239,7 +241,7 @@ namespace Noside.CoinCounter.Models
         public async void Save()
         {
             //since b is inusive, Subtract one
-            char b = (char)('B' + (CoinList.Count - 1));  
+            var b = (char) ('B' + (CoinList.Count - 1));
             var r = $"B2:{b}3";
             var range = new ValueRange
             {
@@ -251,7 +253,7 @@ namespace Noside.CoinCounter.Models
                 Range = r
             };
 
-            var request = _spreadSheetsService.Spreadsheets.Values.Update(range, _spreadsheetId,r);
+            var request = _spreadSheetsService.Spreadsheets.Values.Update(range, _spreadsheetId, r);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
             await request.ExecuteAsync();
             Clean();
@@ -293,7 +295,7 @@ namespace Noside.CoinCounter.Models
             // Left Column, Coins, Space, Total value, Total Rolled
             var count = CoinList.Count + 4;
 
-            string range = $"A1:{(char)('A' + count - 1)}6";
+            var range = $"A1:{(char) ('A' + count - 1)}6";
             var header = new object[count].Init("");
             var counts = new object[count].Init("");
             var rolls = new object[count].Init("");
@@ -305,23 +307,23 @@ namespace Noside.CoinCounter.Models
             rolls[0] = "Rolls To Cash";
             values[0] = "Value";
             values[CoinList.Count + 2] = "Total";
-            spaces[CoinList.Count + 2] = $"=sum(B4:{(char)('B' + (CoinList.Count - 1))}4)";
+            spaces[CoinList.Count + 2] = $"=sum(B4:{(char) ('B' + (CoinList.Count - 1))}4)";
             values[CoinList.Count + 3] = "Total Rolled";
             spaces[CoinList.Count + 3] = "=";
             wraps[0] = "Required Wraps";
-            for (var i = 0; i < this.CoinList.Count; i++)
+            for (var i = 0; i < CoinList.Count; i++)
             {
-                var coin = this.CoinList[i];
+                var coin = CoinList[i];
                 header[i + 1] = coin.Name;
                 counts[i + 1] = coin.Count;
                 rolls[i + 1] = coin.RollsToCash;
-                char c = (char) ('B' + i);
+                var c = (char) ('B' + i);
                 values[i + 1] = $"={c}2 * {coin.Value}";
                 wraps[i + 1] = $"={c}2 / {coin.CoinsPerRoll} - {c}3";
                 spaces[CoinList.Count + 3] += $"({c}3 * {coin.Value * coin.CoinsPerRoll}) + ";
             }
-            
-            spaces[CoinList.Count + 3] = ((string)spaces[CoinList.Count + 3]).Trim(' ', '+');
+
+            spaces[CoinList.Count + 3] = ((string) spaces[CoinList.Count + 3]).Trim(' ', '+');
 
             IList<IList<object>> list = new List<IList<object>>
             {

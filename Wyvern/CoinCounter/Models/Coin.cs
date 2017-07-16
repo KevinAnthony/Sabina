@@ -58,24 +58,23 @@ namespace Noside.CoinCounter.Models
 
         public uint Count
         {
-            get { return _count; }
+            get => _count;
             set
             {
-                if (value == _count) return;
                 if (value == _count) return;
                 Dirty = true;
                 _count = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Total));
                 OnPropertyChanged(nameof(UnrolledCount));
                 OnPropertyChanged(nameof(Rollable));
                 OnPropertyChanged(nameof(UnrolledValue));
+                OnPropertyChanged(nameof(TotalValue));
             }
         }
 
         public bool Dirty
         {
-            get { return _dirty; }
+            get => _dirty;
             set
             {
                 if (value == _dirty) return;
@@ -84,7 +83,7 @@ namespace Noside.CoinCounter.Models
             }
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public bool Rollable => UnrolledCount >= CoinsPerRoll;
 
@@ -92,7 +91,7 @@ namespace Noside.CoinCounter.Models
 
         public uint RollsToCash
         {
-            get { return _rollsToCash; }
+            get => _rollsToCash;
             set
             {
                 if (value == _rollsToCash) return;
@@ -105,12 +104,13 @@ namespace Noside.CoinCounter.Models
                 OnPropertyChanged(nameof(Rollable));
                 OnPropertyChanged(nameof(UnrolledValue));
                 OnPropertyChanged(nameof(RolledValue));
+                OnPropertyChanged(nameof(TotalValue));
             }
         }
 
         public uint CashedRolls
         {
-            get { return _cashedRolls; }
+            get => _cashedRolls;
             set
             {
                 if (value == _cashedRolls) return;
@@ -119,7 +119,7 @@ namespace Noside.CoinCounter.Models
             }
         }
 
-        public float Total => Count*Value;
+        public float TotalValue => Count * Value;
 
         public uint UnrolledCount => Count - RollsToCash*CoinsPerRoll;
 
