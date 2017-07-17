@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Noside.CoinCounter.Controls"
              xmlns:models="clr-namespace:Noside.CoinCounter.Models"
-             xmlns:Properties="clr-namespace:Noside.Properties"
+             xmlns:properties="clr-namespace:Noside.Properties"
              mc:Ignorable="d" Height="328" d:DesignHeight="300">
     <UserControl.DataContext>
         <models:CoinViewModel />
@@ -23,14 +23,14 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Row="0">
 
-            <Button Content="{x:Static Properties:Resources.Generic_Add}" Click="OnAddCoins" Style="{StaticResource NsdButtonStyle}" Margin="3,0,0,0"
+            <Button Content="{x:Static properties:Resources.Generic_Add}" Click="OnAddCoins" Style="{StaticResource NsdButtonStyle}" Margin="3,0,0,0"
                     Width="124" />
-            <Button Content="{x:Static Properties:Resources.CoinCounter_MainView_CashRolls}" Click="OnRollCoins" Style="{StaticResource NsdButtonStyle}" Margin="3,0,0,0"
+            <Button Content="{x:Static properties:Resources.CoinCounter_MainView_CashRolls}" Click="OnRollCoins" Style="{StaticResource NsdButtonStyle}" Margin="3,0,0,0"
                     Width="124" />
-            <Button Content="{x:Static Properties:Resources.Generic_Save}" Click="OnSaveClicked"
+            <Button Content="{x:Static properties:Resources.Generic_Save}" Click="OnSaveClicked"
                     IsEnabled="{Binding Dirty, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource NsdButtonStyle}" Width="124" Margin="3,0,0,0"/>
-            <Button Content="{x:Static Properties:Resources.Generic_Reset}" Click="OnResetClicked"
+            <Button Content="{x:Static properties:Resources.Generic_Reset}" Click="OnResetClicked"
                     IsEnabled="{Binding Dirty, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource NsdButtonStyle}" Width="124" Margin="3,0,0,0" />
             <Rectangle />
@@ -41,21 +41,21 @@
             <Border Width="180" Margin="3,3,0,3" BorderBrush="{StaticResource TextAndLineBrush}"
                     BorderThickness="3,3,1,3" Padding="3,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static Properties:Resources.CoinCounter_MainView_TotalValue}" />
+                    <TextBlock Text="{x:Static properties:Resources.CoinCounter_MainView_TotalValue}" />
                     <TextBlock Text="{Binding TotalValue, Mode=OneWay, StringFormat=\{0:C\}}" />
                 </StackPanel>
             </Border>
             <Border Width="180" Margin="0,3" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="0,3,0,3"
                     Padding="3,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static Properties:Resources.CoinCounter_MainView_RolledValue}" />
+                    <TextBlock Text="{x:Static properties:Resources.CoinCounter_MainView_RolledValue}" />
                     <TextBlock Text="{Binding RolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
                 </StackPanel>
             </Border>
             <Border Width="220" Margin="0,3" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="1,3,3,3"
                     Padding="3,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static Properties:Resources.CoinCounter_MainView_UnrolledValue}" />
+                    <TextBlock Text="{x:Static properties:Resources.CoinCounter_MainView_UnrolledValue}" />
                     <TextBlock Text="{Binding UnrolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
                 </StackPanel>
             </Border>

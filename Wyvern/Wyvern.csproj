@@ -141,6 +141,7 @@
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\NativeMethods.cs" />
+    <Compile Include="Common\Source\GoogleApi.cs" />
     <Compile Include="Common\Ui\Theme.cs" />
     <Compile Include="Common\Ui\Animation.cs" />
     <Compile Include="Common\Animation\GridLengthAnimation.cs" />
