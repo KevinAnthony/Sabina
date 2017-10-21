@@ -11,15 +11,11 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Grid.Column="0" x:Name="TitleBar" MouseDown="OnDragMouseDown">
-            <Button x:Name="CloseButton" DockPanel.Dock="Right" Style="{StaticResource NsdWindowButtonStyle}"
+            <Button x:Name="CloseButton" Style="{StaticResource NsdWindowButtonStyle}"
                     Content="X"
-                    FontSize="23" Click="CloseButton_Click" FontFamily="Segoe UI Symbol"
-                   BorderThickness="0"
-                    Padding="0" />
-            <Button x:Name="MinButton" DockPanel.Dock="Right" Style="{StaticResource NsdWindowButtonStyle}"
-                    Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                    Content="{StaticResource MinimizeWindow}" VerticalContentAlignment="Bottom" Click="MinButton_Click"
-                    BorderThickness="0" Padding="0"/>
+                    Click="CloseButton_Click" FontFamily="Segoe UI Symbol" />
+            <Button x:Name="MinButton" Style="{StaticResource NsdWindowButtonStyle}"
+                    Content="{StaticResource MinimizeWindow}" Click="MinButton_Click" />
                 <TextBlock VerticalAlignment="Center" TextAlignment="Left"
                        Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                        Margin="7,0,0,0" MouseDown="OnDragMouseDown" />

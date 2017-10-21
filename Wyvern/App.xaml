@@ -93,6 +93,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="NsdWindowStyle" TargetType="{x:Type Window}">
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="Typography.Capitals" Value="SmallCaps"/>
@@ -155,6 +156,16 @@
             </Setter>
         </Style>
 
+        <Style x:Key="NsdWindowButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NsdButtonStyle}">
+            <Setter Property="Width" Value="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontFamily" Value="Segoe UI SymbolSegoe UI Symbol"/>
+        </Style>
+
         <Style x:Key="NsdRoundButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NsdButtonStyle}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -188,6 +199,7 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="SelectionBrush" Value="Transparent"/>
         </Style>
+        
         <!-- EndRegion -->
     </Application.Resources>
 </Application>
