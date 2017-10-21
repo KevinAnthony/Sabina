@@ -159,6 +159,7 @@
     <Compile Include="CoinCounter\Models\Coin.cs" />
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\GlassHelper.cs" />
     <Compile Include="Common\NativeMethods.cs" />
     <Compile Include="Common\Source\GoogleApi.cs" />
     <Compile Include="Common\Ui\Theme.cs" />

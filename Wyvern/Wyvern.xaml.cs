@@ -5,6 +5,11 @@ using System.Windows;
 using System.Windows.Input;
 using Noside.CoinCounter.Models;
 using MessageBox = Noside.Common.Windows.MessageBox;
+using System.Windows.Media;
+using System;
+using System.Windows.Interop;
+using Noside.Common;
+using Color = System.Drawing.Color;
 
 #endregion
 
@@ -31,7 +36,7 @@ namespace Noside
             this.Close();
         }
 
-        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             if (!this.CoinView.Dirty) return;
             MessageBoxResult result = MessageBox.Show(Properties.Resources.Wyvern_MainWindow_OnClosing_Save_Results_, Properties.Resources.Generic_Save, MessageBoxButton.YesNoCancel);
@@ -51,5 +56,11 @@ namespace Noside
         }
 
         #endregion
+
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            Window wnd = (Window)sender;
+            GlassHelper.ExtendGlassFrame(wnd, new Thickness(-1));
+        }
     }
 }

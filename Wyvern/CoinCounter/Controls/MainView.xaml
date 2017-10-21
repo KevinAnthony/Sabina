@@ -37,7 +37,7 @@
 
         </DockPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" x:Name="Panel" Orientation="Horizontal" />
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="7,0,0,0">
             <Border Width="180" Margin="3,3,0,3" BorderBrush="{StaticResource TextAndLineBrush}"
                     BorderThickness="3,3,1,3" Padding="3,0">
                 <StackPanel Orientation="Horizontal">
