@@ -166,6 +166,13 @@
             <Setter Property="FontFamily" Value="Segoe UI SymbolSegoe UI Symbol"/>
         </Style>
 
+        <Style x:Key="NsdWindowTitleStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="7,0,0,0"/>
+            <Setter Property="Text" Value="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
+
         <Style x:Key="NsdRoundButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NsdButtonStyle}">
             <Setter Property="Template">
                 <Setter.Value>
