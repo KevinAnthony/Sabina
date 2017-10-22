@@ -60,7 +60,7 @@ namespace Noside
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             Window wnd = (Window)sender;
-            GlassHelper.ExtendGlassFrame(wnd, new Thickness(-1));
+            GlassHelper.ExtendGlassFrame(wnd);
         }
     }
 }

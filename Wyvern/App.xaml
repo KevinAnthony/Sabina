@@ -7,7 +7,7 @@
         <!--<Color x:Key="PrimaryColor">#FF293646</Color>-->
         <Color x:Key="PrimaryColor">#1f293646</Color>
         <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
-        <Color x:Key="BackgroundColor">#C0141B23</Color>
+        <Color x:Key="BackgroundColor">#A0000000</Color>
         <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
         <Color x:Key="HighlightColor" >#FFABC6DC</Color>
         <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}"/>

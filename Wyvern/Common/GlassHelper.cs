@@ -12,6 +12,10 @@ namespace Noside.Common
 {
     class GlassHelper
     {
+	    public static bool ExtendGlassFrame(Window window) {
+		    return ExtendGlassFrame(window, new Thickness(-1));
+	    }
+
         public static bool ExtendGlassFrame(Window window, Thickness margin)
         {
             IntPtr hwnd = new WindowInteropHelper(window).Handle;

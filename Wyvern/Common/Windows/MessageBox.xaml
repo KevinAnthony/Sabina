@@ -9,9 +9,8 @@
         ResizeMode="NoResize" 
         MouseDown="OnDragMouseDown"  
         DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
-        Title="MessageBox" 
+        Title="MessageBox" Loaded="OnLoaded"
         Height="152" Width="443">
-    <Border BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
@@ -44,5 +43,4 @@
                 <Button Grid.Column="4" Style="{StaticResource NsdButtonStyle}" Width="88" Height="26" FontSize="14" x:Name="CancelButton" Content="Cancel" Click="OnCancelClicked" />
             </Grid>
         </Grid>
-    </Border>
 </Window>

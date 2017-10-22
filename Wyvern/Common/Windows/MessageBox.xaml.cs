@@ -28,7 +28,12 @@ namespace Noside.Common.Windows
             this.InitializeComponent();
         }
 
-        #endregion
+	    private void OnLoaded(object sender, RoutedEventArgs e) {
+		    Window window = sender as Window;
+		    GlassHelper.ExtendGlassFrame(window);
+		}
+
+	    #endregion
 
         #region Events
 
