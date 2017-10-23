@@ -19,10 +19,7 @@ namespace Noside.Common.Windows
 	/// Interaction logic for SpashScreen.xaml
 	/// </summary>
 	public partial class SpashScreen : Window {
-
-		private static readonly List<Loadable> RegisteredLoadables = new List<Loadable>();
-		List<LoadInfo> allActions = new List<LoadInfo>();
-
+        
 		public SpashScreen()
 		{
 			this.InitializeComponent();
@@ -39,26 +36,20 @@ namespace Noside.Common.Windows
 
 		private async Task ExecLoadables() {
 			while (!LoadProgress.Value.Equals(LoadProgress.Maximum)) {
-				var li = allActions[(int) LoadProgress.Value];
-				this.LoadDescription.Text = allActions[(int)LoadProgress.Value].Description;
+				var li = LoadQueue.Actions[(int) LoadProgress.Value];
+				this.LoadDescription.Text = LoadQueue.Actions[(int)LoadProgress.Value].Description;
 				await li.LoadAction();
 				await Task.Delay(300);
 				LoadProgress.Value++;
 			}
 		}
 
-		private void FindLoadables() {
-			foreach (var loadable in RegisteredLoadables) {
-				allActions.AddRange(loadable.LoadList);
-			}
+		private void FindLoadables() {		
 			LoadProgress.Value = 0;
-			LoadProgress.Maximum = allActions.Count;
-			LoadDescription.Text = allActions[0].Description;
+			LoadProgress.Maximum = LoadQueue.Actions.Count;
+			LoadDescription.Text = LoadQueue.Actions[0].Description;
 		}
 
-		public static void Register(Loadable loadable) {
-			RegisteredLoadables.Add(loadable);
-		}
 
 		private void SpashScreen_OnLoaded(object sender, RoutedEventArgs e) {
 			Window wnd = sender as Window;

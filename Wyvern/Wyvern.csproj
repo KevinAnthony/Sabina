@@ -164,9 +164,6 @@
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\GlassHelper.cs" />
-    <Compile Include="Common\Load\Loadable.cs" />
-    <Compile Include="Common\Load\LoadInfo.cs" />
-    <Compile Include="Common\Load\NewActionEventArgs.cs" />
     <Compile Include="Common\NativeMethods.cs" />
     <Compile Include="Common\Source\GoogleApi.cs" />
     <Compile Include="Common\Ui\Theme.cs" />
@@ -229,6 +226,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Wyvern.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Noside.Common.Load\Noside.Common.Load.csproj">
+      <Project>{E283B083-BABF-44BC-AE96-2AA36E875E0C}</Project>
+      <Name>Noside.Common.Load</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
