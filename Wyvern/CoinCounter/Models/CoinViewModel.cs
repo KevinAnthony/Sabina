@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.Windows;
 using Coin_Counter.Annotations;
 using Newtonsoft.Json.Linq;
 using Noside.Common;
+using Noside.Common.Load;
 using Noside.Common.Source;
 using Noside.Properties;
 using MessageBox = Noside.Common.Windows.MessageBox;
@@ -20,16 +22,57 @@ using MessageBox = Noside.Common.Windows.MessageBox;
 #endregion
 
 namespace Noside.CoinCounter.Models {
-	public class CoinViewModel : INotifyPropertyChanged {
+
+	public class CoinViewModel : Loadable, INotifyPropertyChanged {
+
 		private readonly string _sheetName = Resources.Sheet_Name;
 		private string _sheetId;
 
 		#region Constructors and Destructors
 
 		public CoinViewModel() {
-			Load();
 			foreach (var coin in CoinList)
 				coin.PropertyChanged += CoinOnPropertyChanged;
+			
+			if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+			{
+				this.LoadList.Add(new LoadInfo(ParseCoinList, "Loading Coin List" ));
+				this.LoadList.Add(new LoadInfo(GoogleApi.Login, "Logging into Google" ));
+				this.LoadList.Add(new LoadInfo(FindSheet,"Finding Sheet" ));
+				this.LoadList.Add(new LoadInfo(CheckId, "Checking ID" ));
+				this.LoadList.Add(new LoadInfo(LoadFromSpreadsheet, "Loading Coin Data" ));
+				this.LoadList.Add(new LoadInfo(RaiseLoadDone, "Finalizing Coin Data" ));
+			}
+			else {
+				this.ParseCoinList();
+				foreach (var coin in CoinList)
+				{
+					coin.Count = 100;
+					coin.RollsToCash = 1;
+				}
+			}
+			
+		}
+
+		public event EventHandler LoadDone;
+
+		private async Task RaiseLoadDone() {
+			LoadDone?.Invoke(this, new EventArgs());
+		}
+
+		private async Task FindSheet() {
+			_sheetId = await GoogleApi.FindSpreadsheetId(_sheetName);
+		}
+
+		private async Task CheckId() {
+			if (string.IsNullOrWhiteSpace(_sheetId))
+			{
+				this.OnNewAction((async () => {
+					IList<IList<object>> data = CreateNewSheet(out var range);
+					_sheetId = await GoogleApi.CreateSpreadsheet(_sheetName, range, data);
+				}), "Creating Sheet");
+			
+			}
 		}
 
 		#endregion
@@ -39,26 +82,6 @@ namespace Noside.CoinCounter.Models {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		#endregion
-
-		private async void Load() {
-			ParseCoinList();
-			//Don't get real values if in desingner mode!
-			if (!DesignerProperties.GetIsInDesignMode(new DependencyObject())) {
-				await GoogleApi.Login();
-				_sheetId = await GoogleApi.FindSpreadsheetId(_sheetName);
-				if (string.IsNullOrWhiteSpace(_sheetId)) {
-					string range;
-					var data = CreateNewSheet(out range);
-					_sheetId = await GoogleApi.CreateSpreadsheet(_sheetName, range, data);
-				}
-				await LoadFromSpreadsheet();
-			} else {
-				foreach (var coin in CoinList) {
-					coin.Count = 100;
-					coin.RollsToCash = 1;
-				}
-			}
-		}
 
 		private IList<IList<object>> CreateNewSheet(out string range) {
 			// Left Column, Coins, Space, Total value, Total Rolled
@@ -103,7 +126,7 @@ namespace Noside.CoinCounter.Models {
 			};
 		}
 
-		private void ParseCoinList() {
+		private async Task ParseCoinList() {
 			foreach (var token in JArray.Parse(Resources.Coins)) {
 				var jobj = (JObject) token;
 
@@ -217,5 +240,6 @@ namespace Noside.CoinCounter.Models {
 		}
 
 		#endregion
+
 	}
 }

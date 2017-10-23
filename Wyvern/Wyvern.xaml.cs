@@ -7,8 +7,10 @@ using Noside.CoinCounter.Models;
 using MessageBox = Noside.Common.Windows.MessageBox;
 using System.Windows.Media;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Interop;
 using Noside.Common;
+using Noside.Common.Windows;
 using Color = System.Drawing.Color;
 
 #endregion
@@ -57,10 +59,17 @@ namespace Noside
 
         #endregion
 
-        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        private async void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            Window wnd = (Window)sender;
+			this.Hide();
+	        this.ShowInTaskbar = false;
+	        var ss = await SpashScreen.Load();
+	        ss.Close();
+	        this.Show();
+	        this.ShowInTaskbar = true;
+			Window wnd = (Window)sender;
             GlassHelper.ExtendGlassFrame(wnd);
+	        
         }
     }
 }

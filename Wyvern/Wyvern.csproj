@@ -129,6 +129,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Common\Windows\SpashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Wyvern.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -160,6 +164,9 @@
     <Compile Include="CoinCounter\Models\CoinViewModel.cs" />
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\GlassHelper.cs" />
+    <Compile Include="Common\Load\Loadable.cs" />
+    <Compile Include="Common\Load\LoadInfo.cs" />
+    <Compile Include="Common\Load\NewActionEventArgs.cs" />
     <Compile Include="Common\NativeMethods.cs" />
     <Compile Include="Common\Source\GoogleApi.cs" />
     <Compile Include="Common\Ui\Theme.cs" />
@@ -167,6 +174,9 @@
     <Compile Include="Common\Animation\GridLengthAnimation.cs" />
     <Compile Include="Common\Windows\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Windows\SpashScreen.xaml.cs">
+      <DependentUpon>SpashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -23,14 +23,16 @@ namespace Noside.CoinCounter.Controls
         public MainView()
         {
             this.InitializeComponent();
-            foreach (
-                CoinBox box in
-                ((CoinViewModel) this.DataContext).CoinList.Select(
-                    coin => new CoinBox {Coin = coin, Margin = new Thickness(3)}))
-            {
-                this.Panel.Children.Add(box);
-                box.RollCoins += this.Box_RollCoins;
-            }
+	        ((CoinViewModel) this.DataContext).LoadDone += (sender, args) => {
+
+		        foreach (
+			        CoinBox box in
+			        ((CoinViewModel) this.DataContext).CoinList.Select(
+				        coin => new CoinBox {Coin = coin, Margin = new Thickness(3)})) {
+			        this.Panel.Children.Add(box);
+			        box.RollCoins += this.Box_RollCoins;
+		        }
+	        };
         }
 
         #endregion
