@@ -33,6 +33,13 @@ namespace Noside.CoinCounter.Controls
             var control = Parent as FrameworkElement;
             var model = control?.DataContext as CoinViewModel;
             if (model == null) return;
+            model.LoadDone += Model_LoadDone;
+        }
+
+        private void Model_LoadDone(object sender, EventArgs e)
+        {
+            var model = sender as CoinViewModel;
+            if (model == null) return;
             this.TheGrid.Children.Clear();
             for (int index = 0; index < model.CoinList.Count; index++)
             {
@@ -42,11 +49,10 @@ namespace Noside.CoinCounter.Controls
                 Grid.SetRow(box, index);
                 this.TheGrid.Children.Add(box);
             }
-
         }
 
         #endregion
-     
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
