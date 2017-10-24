@@ -27,19 +27,22 @@ namespace Noside.CoinCounter.Models {
 
 		private readonly string _sheetName = Resources.Sheet_Name;
 		private string _sheetId;
+        private LoadInfo _checkInfo;
 
-		#region Constructors and Destructors
+        #region Constructors and Destructors
 
-		public CoinViewModel() {
+        public CoinViewModel() {
 			foreach (var coin in CoinList)
 				coin.PropertyChanged += CoinOnPropertyChanged;
 			
 			if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
 			{
-				this.LoadList.Add(new LoadInfo(ParseCoinList, "Loading Coin List" ));
+                this._checkInfo = new LoadInfo(CheckId, "Checking ID");
+
+                this.LoadList.Add(new LoadInfo(ParseCoinList, "Loading Coin List" ));
 				this.LoadList.Add(new LoadInfo(GoogleApi.Login, "Logging into Google" ));
 				this.LoadList.Add(new LoadInfo(FindSheet,"Finding Sheet" ));
-				this.LoadList.Add(new LoadInfo(CheckId, "Checking ID" ));
+				this.LoadList.Add(_checkInfo);
 				this.LoadList.Add(new LoadInfo(LoadFromSpreadsheet, "Loading Coin Data" ));
 				this.LoadList.Add(new LoadInfo(RaiseLoadDone, "Finalizing Coin Data" ));
 			}
@@ -67,12 +70,15 @@ namespace Noside.CoinCounter.Models {
 		private async Task CheckId() {
 			if (string.IsNullOrWhiteSpace(_sheetId))
 			{
-				this.OnNewAction((async () => {
-					IList<IList<object>> data = CreateNewSheet(out var range);
-					_sheetId = await GoogleApi.CreateSpreadsheet(_sheetName, range, data);
-				}), "Creating Sheet");
-			
-			}
+                var index = LoadList.IndexOf(this._checkInfo);
+                var newInfo = new LoadInfo(async () => {
+                    IList<IList<object>> data = CreateNewSheet(out var range);
+                    _sheetId = await GoogleApi.CreateSpreadsheet(_sheetName, range, data);
+                }, "Creating Sheet");
+
+                LoadList.Insert(index + 1, newInfo);
+
+            }
 		}
 
 		#endregion
