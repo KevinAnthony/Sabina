@@ -26,7 +26,6 @@ namespace Noside.CoinCounter.Controls.Component
         {
             InitializeComponent();
             WorkingCoin = coin;
-            _originalCount = uint.MaxValue;
             WorkingCoin.PropertyChanged += WorkingCoinOnPropertyChanged;
         }
 
@@ -38,7 +37,6 @@ namespace Noside.CoinCounter.Controls.Component
 
         private void WorkingCoinOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (_originalCount != uint.MaxValue) return;
             if (args.PropertyName.Equals(nameof(WorkingCoin.Count)))
             {
                 _originalCount = WorkingCoin.Count;
