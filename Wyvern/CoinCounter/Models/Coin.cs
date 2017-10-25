@@ -99,7 +99,7 @@ namespace Noside.CoinCounter.Models
 	            this._rollsToCash = value;
 	            this._cashedRolls = value;
 	            this.OnPropertyChanged();
-	            this.OnPropertyChanged(nameof(this.CashedRolls));
+				this.OnPropertyChanged(nameof(this.CashedRolls));
 	            this.OnPropertyChanged(nameof(this.UnrolledCount));
 	            this.OnPropertyChanged(nameof(this.Rollable));
 	            this.OnPropertyChanged(nameof(this.UnrolledValue));

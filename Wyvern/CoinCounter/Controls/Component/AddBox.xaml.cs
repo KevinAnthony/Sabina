@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -89,6 +90,10 @@ namespace Noside.CoinCounter.Controls.Component
             }
 	        if (!uint.TryParse(raw, out uint count)) return;
 	        this.WorkingCoin.Count = this._originalCount + count;
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e) {
+	        Debug.WriteLine(this.WorkingCoin.Name + ": "+ e.NewSize);
         }
     }
 }

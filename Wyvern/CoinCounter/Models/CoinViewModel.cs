@@ -32,9 +32,7 @@ namespace Noside.CoinCounter.Models {
         #region Constructors and Destructors
 
         public CoinViewModel() {
-			foreach (var coin in this.CoinList)
-				coin.PropertyChanged += this.CoinOnPropertyChanged;
-			
+		
 			if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
 			{
                 this._checkInfo = new LoadInfo(this.CheckId, "Checking ID");
@@ -141,6 +139,8 @@ namespace Noside.CoinCounter.Models {
 				var perRoll = Convert.ToUInt32(((JValue) jobj["perRoll"]).Value);
 				this.CoinList.Add(new Coin(name, value, perRoll));
 			}
+			foreach (var coin in this.CoinList)
+				coin.PropertyChanged += this.CoinOnPropertyChanged;
 		}
 
 		public async void Reset() {
