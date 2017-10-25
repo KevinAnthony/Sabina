@@ -43,7 +43,12 @@ namespace Noside.CoinCounter.Controls.Component
             {
 	            this._originalCount = this.WorkingCoin.Count;
             }
-        }
+	        if (args.PropertyName.Equals(nameof(this.WorkingCoin.Dirty)) && !this.WorkingCoin.Dirty)
+	        {
+		        this._originalCount = this.WorkingCoin.Count;
+		        this.TextInput.Text = "0";
+	        }
+		}
 
         private void OnGotFocus(object sender, EventArgs e)
         {
@@ -90,10 +95,6 @@ namespace Noside.CoinCounter.Controls.Component
             }
 	        if (!uint.TryParse(raw, out uint count)) return;
 	        this.WorkingCoin.Count = this._originalCount + count;
-        }
-
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e) {
-	        Debug.WriteLine(this.WorkingCoin.Name + ": "+ e.NewSize);
         }
     }
 }
