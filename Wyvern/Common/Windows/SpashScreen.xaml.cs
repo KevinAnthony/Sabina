@@ -23,7 +23,7 @@ namespace Noside.Common.Windows
 		public SpashScreen()
 		{
 			this.InitializeComponent();
-            LoadQueue.CountChanged += LoadCountChanged;
+            LoadQueue.CountChanged += this.LoadCountChanged;
 
         }
 
@@ -36,20 +36,20 @@ namespace Noside.Common.Windows
 		}
 
 		private async Task ExecLoadables() {
-            LoadProgress.Value = 0;
-            LoadProgress.Maximum = LoadQueue.Count;
-            LoadDescription.Text = LoadQueue.Get(0).Description;
-            while (!LoadProgress.Value.Equals(LoadProgress.Maximum)) {
-				var li = LoadQueue.Get((int) LoadProgress.Value);
-				this.LoadDescription.Text = LoadQueue.Get((int)LoadProgress.Value).Description;
+			this.LoadProgress.Value = 0;
+			this.LoadProgress.Maximum = LoadQueue.Count;
+			this.LoadDescription.Text = LoadQueue.Get(0).Description;
+            while (!this.LoadProgress.Value.Equals(this.LoadProgress.Maximum)) {
+				var li = LoadQueue.Get((int) this.LoadProgress.Value);
+				this.LoadDescription.Text = LoadQueue.Get((int) this.LoadProgress.Value).Description;
 				await li.LoadAction();
 				await Task.Delay(300);
-				LoadProgress.Value++;
+	            this.LoadProgress.Value++;
 			}
 		}
 
-		private void LoadCountChanged(object sender, EventArgs e) {		
-			LoadProgress.Maximum = LoadQueue.Count;
+		private void LoadCountChanged(object sender, EventArgs e) {
+			this.LoadProgress.Maximum = LoadQueue.Count;
 		}
 
 

@@ -35,11 +35,11 @@ namespace Noside.CoinCounter.Controls
 
         public RollBox(Coin rollCoin)
         {
-            InitializeComponent();
+	        this.InitializeComponent();
             this.WorkingCoin = rollCoin;
             this.AddButton.IsEnabled = false;
-            this.SubButton.IsEnabled = WorkingCoin.CashedRolls != 0;
-            this.WorkingCoin.PropertyChanged += WorkingCoinOnPropertyChanged;
+            this.SubButton.IsEnabled = this.WorkingCoin.CashedRolls != 0;
+            this.WorkingCoin.PropertyChanged += this.WorkingCoinOnPropertyChanged;
         }
 
         private void WorkingCoinOnPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -51,8 +51,8 @@ namespace Noside.CoinCounter.Controls
 
         public Coin WorkingCoin
         {
-            get { return (Coin) GetValue(WorkingCoinProperty); }
-            set { SetValue(WorkingCoinProperty, value); }
+            get { return (Coin) this.GetValue(WorkingCoinProperty); }
+            set { this.SetValue(WorkingCoinProperty, value); }
         }
 
         /// <summary>
@@ -110,12 +110,12 @@ namespace Noside.CoinCounter.Controls
 
         private void OnAdddClick(object sender, RoutedEventArgs e)
         {
-            WorkingCoin.CashedRolls++;
+	        this.WorkingCoin.CashedRolls++;
         }
 
         private void OnSubClick(object sender, RoutedEventArgs e)
         {
-            WorkingCoin.CashedRolls--;
+	        this.WorkingCoin.CashedRolls--;
         }
     }
 }

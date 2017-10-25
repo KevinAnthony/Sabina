@@ -24,22 +24,23 @@ namespace Noside.CoinCounter.Controls.Component
 
         public AddBox(Coin coin)
         {
-            InitializeComponent();
-            WorkingCoin = coin;
-            WorkingCoin.PropertyChanged += WorkingCoinOnPropertyChanged;
+	        this.InitializeComponent();
+	        this.WorkingCoin = coin;
+	        this._originalCount = this.WorkingCoin.Count;
+	        this.WorkingCoin.PropertyChanged += this.WorkingCoinOnPropertyChanged;
         }
 
         public Coin WorkingCoin
         {
-            get { return (Coin) GetValue(WorkingCoinProperty); }
-            set { SetValue(WorkingCoinProperty, value); } 
+            get => (Coin) this.GetValue(WorkingCoinProperty);
+	        set => this.SetValue(WorkingCoinProperty, value);
         }
 
         private void WorkingCoinOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName.Equals(nameof(WorkingCoin.Count)))
+            if (args.PropertyName.Equals(nameof(this.WorkingCoin.Count)))
             {
-                _originalCount = WorkingCoin.Count;
+	            this._originalCount = this.WorkingCoin.Count;
             }
         }
 
@@ -80,15 +81,14 @@ namespace Noside.CoinCounter.Controls.Component
         {
             var tb = sender as TextBox;
             var raw = tb?.Text;
-            if (WorkingCoin == null) return;
+            if (this.WorkingCoin == null) return;
             if (string.IsNullOrWhiteSpace(raw))
             {
                 if (tb != null) tb.Text = "0";
-                WorkingCoin.Count = _originalCount;
+	            this.WorkingCoin.Count = this._originalCount;
             }
-            uint count;
-            if (!uint.TryParse(raw, out count)) return;
-            WorkingCoin.Count = _originalCount + count;
+	        if (!uint.TryParse(raw, out uint count)) return;
+	        this.WorkingCoin.Count = this._originalCount + count;
         }
     }
 }

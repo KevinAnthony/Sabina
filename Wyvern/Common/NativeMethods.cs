@@ -67,10 +67,10 @@ namespace Noside.Common
                 public int Bottom;   // height of bottom border that retains its size  
                 public MARGINS(Thickness t)
                 {
-                    Left = (int)t.Left;
-                    Right = (int)t.Right;
-                    Top = (int)t.Top;
-                    Bottom = (int)t.Bottom;
+	                this.Left = (int)t.Left;
+	                this.Right = (int)t.Right;
+	                this.Top = (int)t.Top;
+	                this.Bottom = (int)t.Bottom;
                 }
             };
         }

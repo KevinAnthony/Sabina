@@ -27,28 +27,28 @@ namespace Noside.CoinCounter.Models {
 
 		private readonly string _sheetName = Resources.Sheet_Name;
 		private string _sheetId;
-        private LoadInfo _checkInfo;
+        private readonly LoadInfo _checkInfo;
 
         #region Constructors and Destructors
 
         public CoinViewModel() {
-			foreach (var coin in CoinList)
-				coin.PropertyChanged += CoinOnPropertyChanged;
+			foreach (var coin in this.CoinList)
+				coin.PropertyChanged += this.CoinOnPropertyChanged;
 			
 			if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
 			{
-                this._checkInfo = new LoadInfo(CheckId, "Checking ID");
+                this._checkInfo = new LoadInfo(this.CheckId, "Checking ID");
 
-                this.LoadList.Add(new LoadInfo(ParseCoinList, "Loading Coin List" ));
+                this.LoadList.Add(new LoadInfo(this.ParseCoinList, "Loading Coin List" ));
 				this.LoadList.Add(new LoadInfo(GoogleApi.Login, "Logging into Google" ));
-				this.LoadList.Add(new LoadInfo(FindSheet,"Finding Sheet" ));
-				this.LoadList.Add(_checkInfo);
-				this.LoadList.Add(new LoadInfo(LoadFromSpreadsheet, "Loading Coin Data" ));
-				this.LoadList.Add(new LoadInfo(RaiseLoadDone, "Finalizing Coin Data" ));
+				this.LoadList.Add(new LoadInfo(this.FindSheet,"Finding Sheet" ));
+				this.LoadList.Add(this._checkInfo);
+				this.LoadList.Add(new LoadInfo(this.LoadFromSpreadsheet, "Loading Coin Data" ));
+				this.LoadList.Add(new LoadInfo(this.RaiseLoadDone, "Finalizing Coin Data" ));
 			}
 			else {
 				this.ParseCoinList();
-				foreach (var coin in CoinList)
+				foreach (var coin in this.CoinList)
 				{
 					coin.Count = 100;
 					coin.RollsToCash = 1;
@@ -60,23 +60,23 @@ namespace Noside.CoinCounter.Models {
 		public event EventHandler LoadDone;
 
 		private async Task RaiseLoadDone() {
-			LoadDone?.Invoke(this, new EventArgs());
+			this.LoadDone?.Invoke(this, new EventArgs());
 		}
 
 		private async Task FindSheet() {
-			_sheetId = await GoogleApi.FindSpreadsheetId(_sheetName);
+			this._sheetId = await GoogleApi.FindSpreadsheetId(this._sheetName);
 		}
 
 		private async Task CheckId() {
-			if (string.IsNullOrWhiteSpace(_sheetId))
+			if (string.IsNullOrWhiteSpace(this._sheetId))
 			{
-                var index = LoadList.IndexOf(this._checkInfo);
+                var index = this.LoadList.IndexOf(this._checkInfo);
                 var newInfo = new LoadInfo(async () => {
-                    IList<IList<object>> data = CreateNewSheet(out var range);
-                    _sheetId = await GoogleApi.CreateSpreadsheet(_sheetName, range, data);
+                    IList<IList<object>> data = this.CreateNewSheet(out var range);
+	                this._sheetId = await GoogleApi.CreateSpreadsheet(this._sheetName, range, data);
                 }, "Creating Sheet");
 
-                LoadList.Insert(index + 1, newInfo);
+				this.LoadList.Insert(index + 1, newInfo);
 
             }
 		}
@@ -91,7 +91,7 @@ namespace Noside.CoinCounter.Models {
 
 		private IList<IList<object>> CreateNewSheet(out string range) {
 			// Left Column, Coins, Space, Total value, Total Rolled
-			var count = CoinList.Count + 4;
+			var count = this.CoinList.Count + 4;
 
 			range = $"A1:{(char) ('A' + count - 1)}6";
 			var header = new object[count].Init("");
@@ -104,23 +104,23 @@ namespace Noside.CoinCounter.Models {
 			counts[0] = "Counts";
 			rolls[0] = "Rolls To Cash";
 			values[0] = "Value";
-			values[CoinList.Count + 2] = "Total";
-			spaces[CoinList.Count + 2] = $"=sum(B4:{(char) ('B' + (CoinList.Count - 1))}4)";
-			values[CoinList.Count + 3] = "Total Rolled";
-			spaces[CoinList.Count + 3] = "=";
+			values[this.CoinList.Count + 2] = "Total";
+			spaces[this.CoinList.Count + 2] = $"=sum(B4:{(char) ('B' + (this.CoinList.Count - 1))}4)";
+			values[this.CoinList.Count + 3] = "Total Rolled";
+			spaces[this.CoinList.Count + 3] = "=";
 			wraps[0] = "Required Wraps";
-			for (var i = 0; i < CoinList.Count; i++) {
-				var coin = CoinList[i];
+			for (var i = 0; i < this.CoinList.Count; i++) {
+				var coin = this.CoinList[i];
 				header[i + 1] = coin.Name;
 				counts[i + 1] = coin.Count;
 				rolls[i + 1] = coin.RollsToCash;
 				var c = (char) ('B' + i);
 				values[i + 1] = $"={c}2 * {coin.Value}";
 				wraps[i + 1] = $"={c}2 / {coin.CoinsPerRoll} - {c}3";
-				spaces[CoinList.Count + 3] += $"({c}3 * {coin.Value * coin.CoinsPerRoll}) + ";
+				spaces[this.CoinList.Count + 3] += $"({c}3 * {coin.Value * coin.CoinsPerRoll}) + ";
 			}
 
-			spaces[CoinList.Count + 3] = ((string) spaces[CoinList.Count + 3]).Trim(' ', '+');
+			spaces[this.CoinList.Count + 3] = ((string) spaces[this.CoinList.Count + 3]).Trim(' ', '+');
 
 			return new List<IList<object>> {
 				header,
@@ -139,17 +139,17 @@ namespace Noside.CoinCounter.Models {
 				var name = ((JValue) jobj["name"]).Value as string;
 				var value = Convert.ToSingle(((JValue) jobj["value"]).Value);
 				var perRoll = Convert.ToUInt32(((JValue) jobj["perRoll"]).Value);
-				CoinList.Add(new Coin(name, value, perRoll));
+				this.CoinList.Add(new Coin(name, value, perRoll));
 			}
 		}
 
 		public async void Reset() {
-			foreach (var coin in CoinList) {
+			foreach (var coin in this.CoinList) {
 				coin.Count = 0;
 				coin.RollsToCash = 0;
 				coin.Dirty = false;
 			}
-			await LoadFromSpreadsheet();
+			await this.LoadFromSpreadsheet();
 		}
 
 
@@ -158,32 +158,32 @@ namespace Noside.CoinCounter.Models {
 		public ObservableCollection<Coin> CoinList { get; set; } = new ObservableCollection<Coin>();
 
 		public bool Dirty {
-			get { return CoinList.Any(coin => coin.Dirty); }
+			get { return this.CoinList.Any(coin => coin.Dirty); }
 		}
 
-		public float RolledValue => CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.RolledValue);
+		public float RolledValue => this.CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.RolledValue);
 
-		public float TotalValue => CoinList.Sum(coin => coin.TotalValue);
+		public float TotalValue => this.CoinList.Sum(coin => coin.TotalValue);
 
-		public float UnrolledValue => CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.UnrolledValue);
+		public float UnrolledValue => this.CoinList.Where(coin => !coin.Value.Equals(1.00f)).Sum(coin => coin.UnrolledValue);
 
 		#endregion
 
 		#region Public Methods
 
 		public void AddCoins(params uint[] values) {
-			if (values.Length != CoinList.Count)
+			if (values.Length != this.CoinList.Count)
 				throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
 			for (var index = 0; index < values.Length; index++)
-				CoinList[index].Count += values[index];
+				this.CoinList[index].Count += values[index];
 		}
 
 		public void CashRolls(params uint[] values) {
-			if (values.Length != CoinList.Count)
+			if (values.Length != this.CoinList.Count)
 				throw new ArgumentOutOfRangeException(nameof(values), Resources.CoinViewModel_AddCoins_Count_Mismatch);
 			for (var index = 0; index < values.Length; index++) {
-				CoinList[index].RollsToCash -= values[index];
-				CoinList[index].Count -= values[index] * CoinList[index].CoinsPerRoll;
+				this.CoinList[index].RollsToCash -= values[index];
+				this.CoinList[index].Count -= values[index] * this.CoinList[index].CoinsPerRoll;
 			}
 		}
 
@@ -191,15 +191,15 @@ namespace Noside.CoinCounter.Models {
 		public async Task LoadFromSpreadsheet() {
 			try {
 				//Since B is inusive, Subtract one
-				var range = $"B2:{(char) ('B' + (CoinList.Count - 1))}3";
+				var range = $"B2:{(char) ('B' + (this.CoinList.Count - 1))}3";
 
-				var values = await GoogleApi.ReadValuesFromSheet(_sheetId, range);
+				var values = await GoogleApi.ReadValuesFromSheet(this._sheetId, range);
 				if (values != null && values.Count > 0)
 					for (var c = 0; c < values[0].Count; c++) {
-						var coin = CoinList[c];
+						var coin = this.CoinList[c];
 						coin.Count = uint.Parse((string) values[0][c]);
 						coin.RollsToCash = uint.Parse((string) values[1][c]);
-						Clean();
+						this.Clean();
 					}
 				else
 					Debug.WriteLine("No data found.");
@@ -218,13 +218,13 @@ namespace Noside.CoinCounter.Models {
 
 		public async void Save() {
 			//since b is inusive, Subtract one
-			var range = $"B2:{(char) ('B' + (CoinList.Count - 1))}3";
+			var range = $"B2:{(char) ('B' + (this.CoinList.Count - 1))}3";
 			var data = new List<IList<object>> {
-				CoinList.Select(coin => coin.Count).Cast<object>().ToList(),
-				CoinList.Select(coin => coin.RollsToCash).Cast<object>().ToList()
+				this.CoinList.Select(coin => coin.Count).Cast<object>().ToList(),
+				this.CoinList.Select(coin => coin.RollsToCash).Cast<object>().ToList()
 			};
-			GoogleApi.WriteValuesToSheet(_sheetId, range, data);
-			Clean();
+			GoogleApi.WriteValuesToSheet(this._sheetId, range, data);
+			this.Clean();
 		}
 
 		#endregion
@@ -233,16 +233,16 @@ namespace Noside.CoinCounter.Models {
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		private void Clean() {
-			foreach (var coin in CoinList)
+			foreach (var coin in this.CoinList)
 				coin.Dirty = false;
 		}
 
 		private void CoinOnPropertyChanged(object sender, PropertyChangedEventArgs args) {
-			OnPropertyChanged(args.PropertyName);
+			this.OnPropertyChanged(args.PropertyName);
 		}
 
 		#endregion

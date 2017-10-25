@@ -20,9 +20,9 @@ namespace Noside.CoinCounter.Models
 
         public Coin(string name, float value, uint perRoll)
         {
-            Name = name;
-            Value = value;
-            CoinsPerRoll = perRoll;
+	        this.Name = name;
+	        this.Value = value;
+	        this.CoinsPerRoll = perRoll;
         }
 
         #endregion
@@ -38,7 +38,7 @@ namespace Noside.CoinCounter.Models
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
@@ -58,72 +58,72 @@ namespace Noside.CoinCounter.Models
 
         public uint Count
         {
-            get => _count;
+            get => this._count;
             set
             {
-                if (value == _count) return;
-                Dirty = true;
-                _count = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(UnrolledCount));
-                OnPropertyChanged(nameof(Rollable));
-                OnPropertyChanged(nameof(UnrolledValue));
-                OnPropertyChanged(nameof(TotalValue));
+                if (value == this._count) return;
+	            this.Dirty = true;
+	            this._count = value;
+	            this.OnPropertyChanged();
+	            this.OnPropertyChanged(nameof(this.UnrolledCount));
+	            this.OnPropertyChanged(nameof(this.Rollable));
+	            this.OnPropertyChanged(nameof(this.UnrolledValue));
+	            this.OnPropertyChanged(nameof(this.TotalValue));
             }
         }
 
         public bool Dirty
         {
-            get => _dirty;
+            get => this._dirty;
             set
             {
-                if (value == _dirty) return;
-                _dirty = value;
-                OnPropertyChanged();
+                if (value == this._dirty) return;
+	            this._dirty = value;
+	            this.OnPropertyChanged();
             }
         }
 
         public string Name { get; }
 
-        public bool Rollable => UnrolledCount >= CoinsPerRoll;
+        public bool Rollable => this.UnrolledCount >= this.CoinsPerRoll;
 
-        public float RolledValue => RollsToCash*CoinsPerRoll*Value;
+        public float RolledValue => this.RollsToCash* this.CoinsPerRoll* this.Value;
 
         public uint RollsToCash
         {
-            get => _rollsToCash;
+            get => this._rollsToCash;
             set
             {
-                if (value == _rollsToCash) return;
-                Dirty = true;
-                _rollsToCash = value;
-                _cashedRolls = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(CashedRolls));
-                OnPropertyChanged(nameof(UnrolledCount));
-                OnPropertyChanged(nameof(Rollable));
-                OnPropertyChanged(nameof(UnrolledValue));
-                OnPropertyChanged(nameof(RolledValue));
-                OnPropertyChanged(nameof(TotalValue));
+                if (value == this._rollsToCash) return;
+	            this.Dirty = true;
+	            this._rollsToCash = value;
+	            this._cashedRolls = value;
+	            this.OnPropertyChanged();
+	            this.OnPropertyChanged(nameof(this.CashedRolls));
+	            this.OnPropertyChanged(nameof(this.UnrolledCount));
+	            this.OnPropertyChanged(nameof(this.Rollable));
+	            this.OnPropertyChanged(nameof(this.UnrolledValue));
+	            this.OnPropertyChanged(nameof(this.RolledValue));
+	            this.OnPropertyChanged(nameof(this.TotalValue));
             }
         }
 
         public uint CashedRolls
         {
-            get => _cashedRolls;
+            get => this._cashedRolls;
             set
             {
-                if (value == _cashedRolls) return;
-                _cashedRolls = value;
-                OnPropertyChanged();
+                if (value == this._cashedRolls) return;
+	            this._cashedRolls = value;
+	            this.OnPropertyChanged();
             }
         }
 
-        public float TotalValue => Count * Value;
+        public float TotalValue => this.Count * this.Value;
 
-        public uint UnrolledCount => Count - RollsToCash*CoinsPerRoll;
+        public uint UnrolledCount => this.Count - this.RollsToCash* this.CoinsPerRoll;
 
-        public float UnrolledValue => UnrolledCount*Value;
+        public float UnrolledValue => this.UnrolledCount* this.Value;
 
         public float Value { get; }
 

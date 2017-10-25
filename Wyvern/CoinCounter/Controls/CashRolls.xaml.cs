@@ -32,7 +32,7 @@ namespace Noside.CoinCounter.Controls
         /// </summary>
         public CashRolls()
         {
-            InitializeComponent();
+	        this.InitializeComponent();
         }
 
         #endregion
@@ -55,17 +55,17 @@ namespace Noside.CoinCounter.Controls
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
         protected override void OnVisualParentChanged(DependencyObject oldParent)
         {
             base.OnVisualParentChanged(oldParent);
-            var control = Parent as FrameworkElement;
+            var control = this.Parent as FrameworkElement;
             var model = control?.DataContext as CoinViewModel;
             if (model == null) return;
-            model.LoadDone += Model_LoadDone;
+            model.LoadDone += this.Model_LoadDone;
         }
 
         private void Model_LoadDone(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace Noside.CoinCounter.Controls
 
         private void OnCashRollsClick(object sender, RoutedEventArgs e)
         {
-            var control = Parent as FrameworkElement;
+            var control = this.Parent as FrameworkElement;
             var model = control?.DataContext as CoinViewModel;
             if (model == null) return;
             foreach (var coin in model.CoinList)

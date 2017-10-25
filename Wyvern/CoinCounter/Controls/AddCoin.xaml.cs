@@ -24,16 +24,16 @@ namespace Noside.CoinCounter.Controls
 
         public AddCoin()
         {
-            InitializeComponent();
+	        this.InitializeComponent();
         }
 
         protected override void OnVisualParentChanged(DependencyObject oldParent)
         {
             base.OnVisualParentChanged(oldParent);
-            var control = Parent as FrameworkElement;
+            var control = this.Parent as FrameworkElement;
             var model = control?.DataContext as CoinViewModel;
             if (model == null) return;
-            model.LoadDone += Model_LoadDone;
+            model.LoadDone += this.Model_LoadDone;
         }
 
         private void Model_LoadDone(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Noside.CoinCounter.Controls
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
