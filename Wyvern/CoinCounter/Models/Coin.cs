@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Coin_Counter.Annotations;
+using Annotations;
 
 #endregion
 

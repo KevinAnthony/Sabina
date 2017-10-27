@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using Coin_Counter.Annotations;
+using Annotations;
 using Noside.CoinCounter.Models;
 
 #endregion

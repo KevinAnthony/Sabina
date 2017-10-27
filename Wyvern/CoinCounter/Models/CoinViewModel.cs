@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
-using Coin_Counter.Annotations;
+using Annotations;
 using Newtonsoft.Json.Linq;
 using Noside.Common;
 using Noside.Common.Load;
