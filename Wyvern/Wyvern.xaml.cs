@@ -61,13 +61,13 @@ namespace Noside
 
         private async void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-			this.Hide();
-	        this.ShowInTaskbar = false;
-	        var ss = await SpashScreen.Load();
-	        ss.Close();
-	        this.Show();
-	        this.ShowInTaskbar = true;
-			Window wnd = (Window)sender;
+            //this.Hide();
+            //this.ShowInTaskbar = false;
+            //var ss = await SpashScreen.Load();
+            //ss.Close();
+            //this.Show();
+            //this.ShowInTaskbar = true;
+            Window wnd = (Window)sender;
             GlassHelper.ExtendGlassFrame(wnd);
 	        
         }
