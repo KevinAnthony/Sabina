@@ -19,8 +19,9 @@
         <TextBlock Text=" / "/>
             <TextBlock Text="{Binding Maximum, ElementName=LoadProgress}"/>
         </StackPanel>
-        <Border Width="518" Grid.Column="1" Margin="25,25,25,25" Height="48" VerticalAlignment="Bottom" Padding="7" BorderThickness="2" BorderBrush="{StaticResource TextAndLineBrush}">
-            <ProgressBar x:Name="LoadProgress" Value="0" Maximum="1" Foreground="{StaticResource TextAndLineBrush}" Background="Transparent" BorderThickness="0"/>
-        </Border>
+        <ProgressBar x:Name="LoadProgress" Grid.Column="1" Style="{StaticResource NsdProgressBar}" Height="48" VerticalAlignment="Bottom"  Margin="25,25,25,25"/>
+        <!--<Border Width="518" Grid.Column="1"  Padding="7" BorderThickness="2" BorderBrush="{StaticResource TextAndLineBrush}">
+            <ProgressBar  Value="0" Maximum="1" Foreground="{StaticResource TextAndLineBrush}" Background="Transparent" BorderThickness="0" Style="{DynamicResource NsdProgressBar}"/>
+        </Border>-->
     </Grid>
 </Window>
