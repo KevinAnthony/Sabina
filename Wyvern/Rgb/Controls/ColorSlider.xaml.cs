@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NoSide.Rgb.Controls
+namespace Noside.Rgb.Controls
 {
     /// <summary>
     /// Interaction logic for ColorSlider.xaml

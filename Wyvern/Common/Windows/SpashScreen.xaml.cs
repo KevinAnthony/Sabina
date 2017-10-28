@@ -30,7 +30,6 @@ namespace Noside.Common.Windows
 		public static async Task<SpashScreen> Load() {
 			var ss = new SpashScreen();
 			ss.Show();
-
 			await ss.ExecLoadables();
 			return ss;
 		}

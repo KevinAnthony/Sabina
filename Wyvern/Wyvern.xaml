@@ -6,13 +6,14 @@
         Style="{StaticResource NsdWindowStyle}"
         Loaded="OnWindowLoaded" Closing="OnWindowClosing"  MouseDown="OnDragMouseDown"
         Title="Coin Counter Mk 4" WindowStartupLocation="CenterScreen">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="32" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="32" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="TitleBar" MouseDown="OnDragMouseDown">
@@ -21,10 +22,10 @@
                     Click="CloseButton_Click" FontFamily="Segoe UI Symbol" />
             <Button x:Name="MinButton" Style="{StaticResource NsdWindowButtonStyle}"
                     Content="{StaticResource MinimizeWindow}" Click="MinButton_Click" />
-                <TextBlock Style="{StaticResource NsdWindowTitleStyle}" MouseDown="OnDragMouseDown" />
-            </DockPanel>
-        <coin:MainView Grid.Row="1" Grid.Column="0" x:Name="CoinView" />
-        <rgb:ColorPicker Grid.Row="1" Grid.Column="1" />
+            <TextBlock Style="{StaticResource NsdWindowTitleStyle}" MouseDown="OnDragMouseDown" />
+        </DockPanel>
+        <DockPanel x:Name="ToolBar" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MouseDown="OnDragMouseDown"/>
+        <coin:MainView Grid.Row="2" Grid.Column="0" x:Name="CoinView" Loaded="CoinView_Loaded"/>
+        <rgb:ColorPicker Grid.Row="2" Grid.Column="1" />
     </Grid>
-    
 </Window>

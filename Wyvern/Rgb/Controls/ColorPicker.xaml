@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Noside.Rgb.Controls"
-             xmlns:controls="clr-namespace:NoSide.Rgb.Controls"
+             xmlns:controls="clr-namespace:Noside.Rgb.Controls"
              xmlns:converters="clr-namespace:Noside.Rgb.Converters"
              DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d" 
@@ -12,8 +12,8 @@
     <UserControl.Resources>
         <converters:HexToColorConverter x:Key="HexToColorConverter"/>
     </UserControl.Resources>
-    <Border Background="{StaticResource PrimaryBrush}" BorderBrush="{StaticResource TextAndLineBrush}" BorderThickness="4" CornerRadius="4" Margin="7">
-        <Grid Margin="3">
+    <Border>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -33,5 +33,5 @@
         <controls:ColorSlider x:Name="G" Grid.Row="2"/>
         <controls:ColorSlider x:Name="B" Grid.Row="3"/>        
     </Grid>
-        </Border>
+    </Border>
 </UserControl>
