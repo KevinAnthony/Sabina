@@ -35,6 +35,7 @@ namespace Noside.Common.Windows
 		}
 
 		private async Task ExecLoadables() {
+            return;
 			this.LoadProgress.Value = 0;
 			this.LoadProgress.Maximum = LoadQueue.Count;
 			this.LoadDescription.Text = LoadQueue.Get(0).Description;
@@ -42,7 +43,6 @@ namespace Noside.Common.Windows
 				var li = LoadQueue.Get((int) this.LoadProgress.Value);
 				this.LoadDescription.Text = LoadQueue.Get((int) this.LoadProgress.Value).Description;
 				await li.LoadAction();
-				await Task.Delay(300);
 	            this.LoadProgress.Value++;
 			}
 		}
