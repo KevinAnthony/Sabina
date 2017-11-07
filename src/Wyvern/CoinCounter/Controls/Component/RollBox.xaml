@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Noside.CoinCounter.Controls.Component.RollBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Noside.CoinCounter.Controls"
+             mc:Ignorable="d" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource NsdTextBoxStyle}">
+            <Style.Setters>
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="3"/>
+                <EventSetter Event="PreviewTextInput" Handler="TextBox_OnPreviewTextInput"/>
+                <EventSetter Event="DataObject.Pasting" Handler="TextBox_TextBoxPasting"/>
+                <EventSetter Event="GotFocus" Handler="OnGotFocus"/>
+                <EventSetter Event="GotKeyboardFocus" Handler="OnGotFocus"/>
+                <EventSetter Event="GotMouseCapture" Handler="OnGotFocus"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="CountButtons" TargetType="{x:Type Button}" BasedOn="{StaticResource NsdIconButtons}">
+            <Style.Setters>
+                <Setter Property="Height" Value="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                <Setter Property="Margin" Value="3"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="AddButton" TargetType="{x:Type Button}" BasedOn="{StaticResource CountButtons}">
+            <Style.Setters>
+                <Setter Property="Content" Value="{StaticResource Plus}"/>
+                <EventSetter Event="Click" Handler="OnAdddClick"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="SubButton" TargetType="{x:Type Button}" BasedOn="{StaticResource CountButtons}">
+            <Style.Setters>
+                <Setter Property="Content" Value="{StaticResource Minus}"/>
+                <EventSetter Event="Click" Handler="OnSubClick"/>
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Margin="7,0" Text="{Binding WorkingCoin.Name}"/>
+        <TextBox Grid.Column="1" Text="{Binding WorkingCoin.CashedRolls, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Column="2" x:Name="AddButton" Style="{StaticResource AddButton}" />
+        <Button Grid.Column="3" x:Name="SubButton" Style="{StaticResource SubButton}" />
+
+    </Grid>
+</UserControl>
