@@ -5,12 +5,10 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Navigation;
-using Noside.Common;
 
 #endregion
 
-namespace Noside
+namespace Noside.Wyvern
 {
     /// <summary>
     ///     Interaction logic for App.xaml
@@ -21,11 +19,9 @@ namespace Noside
 
         private uint _message;
         private Mutex _mutex;
-        // ReSharper disable once RedundantDefaultMemberInitializer
-        // Explicit is better than implicit
         private bool _hooked = false;
 
-        #endregion
+	    #endregion
 
         #region Methods
 
@@ -35,24 +31,26 @@ namespace Noside
             bool mutexCreated;
             string mutexName = $"Local\\{assembly.GetType().GUID}{assembly.GetName().Name}";
             this._mutex = new Mutex(true, mutexName, out mutexCreated);
-            this._message = NativeMethods.User32.RegisterWindowMessage(mutexName);
+            this._message = Common.NativeMethods.User32.RegisterWindowMessage(mutexName);
 
             if (!mutexCreated)
             {
-                NativeMethods.User32.PostMessage(NativeMethods.HwndBroadcast, this._message, IntPtr.Zero, IntPtr.Zero);
+                Common.NativeMethods.User32.PostMessage(Common.NativeMethods.HwndBroadcast, this._message, IntPtr.Zero, IntPtr.Zero);
                 Current.Shutdown();
                 return;
             }
+	        base.OnStartup(e);
 
-            base.OnStartup(e);
-        }
+	        var bootstrapper = new Bootstrapper();
+	        bootstrapper.Run();
+		}
 
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
             if (this._hooked) return;
-            HwndSource hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(this.MainWindow).Handle);
-            hwndSource?.AddHook(this.HandleMessages);
+//	        HwndSource hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(this.MainWindow).Handle);
+//            hwndSource?.AddHook(this.HandleMessages);
             this._hooked = true;
         }
 

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Noside.Wyvern.CoinCounter.Views.AddCoin"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Noside.Wyvern.CoinCounter.Controls"
+             xmlns:mvvm="http://prismlibrary.com/" 
+             MouseDown="OnDragMouseDown" Loaded="OnControlLoaded"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" Width="185" Margin="3" d:DesignHeight="300" d:DesignWidth="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Grid.Column="0" mvvm:RegionManager.RegionName="TitleBarArea"/>
+
+        <Border Grid.Row="1" Grid.Column="0" Background="{DynamicResource PrimaryBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="4" CornerRadius="4">
+            <ItemsControl ItemsSource="{Binding CoinList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:AddBox Margin="3"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+    </Grid>
+</UserControl>

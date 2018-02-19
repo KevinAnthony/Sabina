@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Noside.Wyvern.CoinCounter.Views.CoinView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:controls="clr-namespace:Noside.Wyvern.CoinCounter.Controls"
+             xmlns:viewModels="clr-namespace:Noside.Wyvern.CoinCounter.ViewModels"
+             xmlns:p="clr-namespace:Noside.Wyvern.CoinCounter.Properties"
+             xmlns:views="clr-namespace:Noside.Wyvern.CoinCounter.Views"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" MinHeight="296" d:DesignHeight="300"
+             d:DataContext="{d:DesignInstance viewModels:CoinViewModel }">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <mvvm:InteractionRequestTrigger SourceObject="{Binding AddRequest}">
+            <mvvm:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" WindowStyle="{DynamicResource NsdWindowStyle}">
+                <mvvm:PopupWindowAction.WindowContent>
+                    <views:AddCoin/>
+                </mvvm:PopupWindowAction.WindowContent>
+            </mvvm:PopupWindowAction>
+        </mvvm:InteractionRequestTrigger>
+        <mvvm:InteractionRequestTrigger SourceObject="{Binding CashRollsRequest}">
+            <mvvm:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" WindowStyle="{DynamicResource NsdWindowStyle}">
+                <mvvm:PopupWindowAction.WindowContent>
+                    <views:CashRolls/>
+                </mvvm:PopupWindowAction.WindowContent>
+            </mvvm:PopupWindowAction>
+        </mvvm:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="32" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Content = "{x:Static p:Resources.Generic_Add}" Command="{Binding AddCommand}" Style = "{DynamicResource NsdButtonStyle}" Margin = "3,0,0,0"
+                    Width = "124" />
+            <Button Content = "{x:Static p:Resources.CoinCounter_MainView_CashRolls}" Command = "{Binding CashRollsCommand}" Style = "{DynamicResource NsdButtonStyle}" Margin = "3,0,0,0"
+                    Width = "124" />
+            <Button Content = "{x:Static p:Resources.Generic_Save}" Command="{Binding SaveCommand}"
+                    IsEnabled = "{Binding Dirty, UpdateSourceTrigger=PropertyChanged}"
+                    Style = "{DynamicResource NsdButtonStyle}" Width = "124" Margin = "3,0,0,0" />
+
+            <Button Content = "{x:Static p:Resources.Generic_Reset}" Command="{Binding ResetCommand}"
+                    IsEnabled = "{Binding Dirty, UpdateSourceTrigger=PropertyChanged}"
+                    Style = "{DynamicResource NsdButtonStyle}" Width = "124" Margin = "3,0,0,0" />
+        </StackPanel>
+
+        <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding CoinList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:CoinBox Margin="3"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="7,0,0,0">
+            <Border Width="180" Margin="3,3,0,3" BorderBrush="{DynamicResource LineBrush}"
+                    BorderThickness="3,3,1,3" Padding="3,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static p:Resources.CoinCounter_MainView_TotalValue}" />
+                    <TextBlock Text="{Binding TotalValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                </StackPanel>
+            </Border>
+            <Border Width="180" Margin="0,3" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,3,0,3"
+                    Padding="3,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static p:Resources.CoinCounter_MainView_RolledValue}" />
+                    <TextBlock Text="{Binding RolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                </StackPanel>
+            </Border>
+            <Border Width="220" Margin="0,3" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1,3,3,3"
+                    Padding="3,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static p:Resources.CoinCounter_MainView_UnrolledValue}" />
+                    <TextBlock Text="{Binding UnrolledValue, Mode=OneWay, StringFormat=\{0:C\}}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <ContentControl Grid.Row="1" Grid.Column="1" mvvm:RegionManager.RegionName="AddCoinArea" Visibility="{Binding ShowAddCoins, Converter={StaticResource BoolToVisConverter}}"/>
+        <ContentControl Grid.Row="1" Grid.Column="2" mvvm:RegionManager.RegionName="RollCoinArea" Visibility="{Binding ShowCashRolls, Converter={StaticResource BoolToVisConverter}}"/>
+    </Grid>
+</UserControl>

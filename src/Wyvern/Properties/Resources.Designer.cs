@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Noside.Properties {
+namespace Noside.Wyvern.Properties {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Noside.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -39,7 +39,7 @@ namespace Noside.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Noside.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Noside.Wyvern.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,78 +57,6 @@ namespace Noside.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cash Rolls.
-        /// </summary>
-        public static string CoinCounter_CashRolls_CashRolls {
-            get {
-                return ResourceManager.GetString("CoinCounter_CashRolls_CashRolls", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cash Rolls.
-        /// </summary>
-        public static string CoinCounter_MainView_CashRolls {
-            get {
-                return ResourceManager.GetString("CoinCounter_MainView_CashRolls", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rolled Value :.
-        /// </summary>
-        public static string CoinCounter_MainView_RolledValue {
-            get {
-                return ResourceManager.GetString("CoinCounter_MainView_RolledValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Value :.
-        /// </summary>
-        public static string CoinCounter_MainView_TotalValue {
-            get {
-                return ResourceManager.GetString("CoinCounter_MainView_TotalValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unrolled Value :.
-        /// </summary>
-        public static string CoinCounter_MainView_UnrolledValue {
-            get {
-                return ResourceManager.GetString("CoinCounter_MainView_UnrolledValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [{&quot;name&quot;:&quot;Dollar&quot;,&quot;value&quot;:1,&quot;perRoll&quot;:25},{&quot;name&quot;:&quot;Quarter&quot;,&quot;value&quot;:0.25,&quot;perRoll&quot;:40},{&quot;name&quot;:&quot;Dime&quot;,&quot;value&quot;:0.1,&quot;perRoll&quot;:50},{&quot;name&quot;:&quot;Nickel&quot;,&quot;value&quot;:0.05,&quot;perRoll&quot;:40},{&quot;name&quot;:&quot;Penny&quot;,&quot;value&quot;:0.01,&quot;perRoll&quot;:50}].
-        /// </summary>
-        public static string Coins {
-            get {
-                return ResourceManager.GetString("Coins", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Count Mismatch.
-        /// </summary>
-        public static string CoinViewModel_AddCoins_Count_Mismatch {
-            get {
-                return ResourceManager.GetString("CoinViewModel_AddCoins_Count_Mismatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot Roll {0}&apos;s{1}Not Enough Coins To Roll.
-        /// </summary>
-        public static string CoinViewModel_NotEnoughCoins {
-            get {
-                return ResourceManager.GetString("CoinViewModel_NotEnoughCoins", resourceCulture);
             }
         }
         
@@ -178,30 +106,12 @@ namespace Noside.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coin Counts.
-        /// </summary>
-        public static string Sheet_Name {
-            get {
-                return ResourceManager.GetString("Sheet_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Wyvern {
             get {
                 object obj = ResourceManager.GetObject("Wyvern", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Results?.
-        /// </summary>
-        public static string Wyvern_MainWindow_OnClosing_Save_Results_ {
-            get {
-                return ResourceManager.GetString("Wyvern_MainWindow_OnClosing_Save_Results_", resourceCulture);
             }
         }
     }

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Noside.Wyvern.Theme">
+    <Color x:Key="PrimaryColor">#1f293646</Color>
+    <Color x:Key="BackgroundColor">#A0000000</Color>
+    <Color x:Key="HighlightColor">#FFABC6DC</Color>
+    <Color x:Key="LineColor">#FF4221EA</Color>
+    <Color x:Key="TextColor">#FFABC6DC</Color>
+</ResourceDictionary>

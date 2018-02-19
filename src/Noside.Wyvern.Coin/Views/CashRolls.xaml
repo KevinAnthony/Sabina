@@ -1,0 +1,42 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Noside.Wyvern.CoinCounter.Controls"
+             xmlns:p="clr-namespace:Noside.Wyvern.CoinCounter.Properties"
+             x:Class="Noside.Wyvern.CoinCounter.Views.CashRolls"
+             mc:Ignorable="d" Width="300" Margin="3" Loaded="OnControlLoaded"
+    xmlns:mvvm="http://prismlibrary.com/" 
+    MouseDown="OnDragMouseDown"
+    mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Grid.Column="0" mvvm:RegionManager.RegionName="TitleBarArea"/>
+        <Border Grid.Row="1" BorderBrush="{DynamicResource LineBrush}" BorderThickness="4" CornerRadius="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="38"/>
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding CoinList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:RollBox Margin="3"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button Grid.Row="1" Margin="3" Content="{x:Static p:Resources.CoinCounter_CashRolls_CashRolls}" Style="{DynamicResource NsdButtonStyle}" Command="{Binding SaveCashRollsCommand}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
