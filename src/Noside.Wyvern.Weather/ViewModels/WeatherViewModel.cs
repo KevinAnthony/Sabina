@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CreativeGurus.Weather.Wunderground;
@@ -12,22 +14,18 @@ using Prism.Mvvm;
 #endregion
 
 namespace Noside.Wyvern.Weather.ViewModels {
-	internal class WeatherViewModel : BindableBase, IWeatherViewModel
-	{
+	internal class WeatherViewModel : BindableBase, IWeatherViewModel {
 		#region Fields
 
-		private string _cityName;
 		private readonly IWeatherClient _client;
-
-		private string _conditions;
-		private double _tempature;
+		private string _cityName;
 		private ObservableCollection<Forecast> _fourDay;
+		private string _icon;
+		private double _tempature;
+		private string _weatherText;
+		private double _high;
+		private double _low;
 
-		public ObservableCollection<Forecast> FourDay
-		{
-			get => this._fourDay;
-			set => this.SetProperty(ref this._fourDay, value);
-		}
 		#endregion
 
 		#region Constructors and Destructors
@@ -36,33 +34,6 @@ namespace Noside.Wyvern.Weather.ViewModels {
 			this._client = weather;
 			Task.Factory.StartNew(this.Populate);
 			this.FourDay = new ObservableCollection<Forecast>();
-		}
-
-		private async Task Populate() {
-			ConditionsResponse weatherResponse = await this._client.GetConditionsAsync(QueryType.AutoIp);
-			while (weatherResponse?.CurrentObservation == null) {
-				await Task.Delay(2500);
-				weatherResponse = await this._client.GetConditionsAsync(QueryType.AutoIp);
-			}
-			this.Tempature = weatherResponse.CurrentObservation.TempF;
-			this.CityName = weatherResponse.CurrentObservation.DisplayLocation.Full;
-			this.Conditions = weatherResponse.CurrentObservation.Weather;
-			var forcastResponse = await this._client.GetForecastAsync(QueryType.GPS, new QueryOptions { Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude });
-			while (forcastResponse?.Forecast == null) {
-				await Task.Delay(2500);
-				forcastResponse = await this._client.GetForecastAsync(QueryType.GPS, new QueryOptions{Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
-			}
-			await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-			{
-				foreach (var day in forcastResponse.Forecast.SimpleForecast.ForecastDay)
-				{
-					var fc = new Forecast();
-					fc.Weather = day.Icon;
-					fc.Tempature = day.High.Fahrenheit ?? 0.0;
-					this.FourDay.Add(fc);
-				}
-			}));
-
 		}
 
 		#endregion
@@ -74,33 +45,77 @@ namespace Noside.Wyvern.Weather.ViewModels {
 			set => this.SetProperty(ref this._cityName, value);
 		}
 
-		public string Conditions {
-			get => this._conditions;
-			set => this.SetProperty(ref this._conditions, value);
+		public ObservableCollection<Forecast> FourDay {
+			get => this._fourDay;
+			set => this.SetProperty(ref this._fourDay, value);
 		}
 
+		public string Icon {
+			get => this._icon;
+			set => this.SetProperty(ref this._icon, value);
+		}
+
+		public string WeatherText
+		{
+			get => this._weatherText;
+			set => this.SetProperty(ref this._weatherText, value);
+		}
 
 		public double Tempature {
 			get => this._tempature;
 			set => this.SetProperty(ref this._tempature, value);
+		}
+		public double High
+		{
+			get => this._high;
+			set => this.SetProperty(ref this._high, value);
+		}
+		public double Low
+		{
+			get => this._low;
+			set => this.SetProperty(ref this._low, value);
 		}
 
 		#endregion
-	}
 
-	public class Forecast : BindableBase {
-		private string _weather;
+		#region Methods
 
-		public string Weather {
-			get => this._weather;
-			set => this.SetProperty(ref this._weather, value);
+		private async Task Populate() {
+			ConditionsResponse weatherResponse = await this._client.GetConditionsAsync(QueryType.AutoIp);
+			while (weatherResponse?.CurrentObservation == null) {
+				Debug.WriteLine(weatherResponse?.Response.Error["description"]);
+				await Task.Delay(2500);
+				weatherResponse = await this._client.GetConditionsAsync(QueryType.ZipCode, new QueryOptions {ZipCode = "08820"});
+			}
+
+			await Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+				this.Tempature = weatherResponse.CurrentObservation.TempF;
+				this.CityName = weatherResponse.CurrentObservation.DisplayLocation.Full;
+				this.Icon = weatherResponse.CurrentObservation.Icon;
+				this.WeatherText = weatherResponse.CurrentObservation.Weather;
+			}));
+			var forcastResponse = await this._client.GetForecast10DayAsync(QueryType.GPS, new QueryOptions {Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
+			while (forcastResponse?.Forecast == null) {
+				await Task.Delay(2500);
+				forcastResponse = await this._client.GetForecast10DayAsync(QueryType.GPS, new QueryOptions {Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
+			}
+			
+			await Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+				this.High = forcastResponse.Forecast.SimpleForecast.ForecastDay[0].High.Fahrenheit ?? 0.0;
+				this.Low = forcastResponse.Forecast.SimpleForecast.ForecastDay[0].Low.Fahrenheit ?? 0.0;
+				foreach (var day in forcastResponse.Forecast.SimpleForecast.ForecastDay.Skip(1).Take(4)) {
+					var fc = new Forecast {
+						Icon = day.Icon,
+						High = day.High.Fahrenheit ?? 0.0,
+						Low = day.Low.Fahrenheit ?? 0.0,
+						Day = day.Date.Weekday,
+						WeatherText = day.Conditions
+					};
+					this.FourDay.Add(fc);
+				}
+			}));
 		}
 
-		private double _tempature;
-
-		public double Tempature {
-			get => this._tempature;
-			set => this.SetProperty(ref this._tempature, value);
-		}
+		#endregion
 	}
 }

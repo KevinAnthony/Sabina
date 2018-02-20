@@ -73,7 +73,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding Foreground}"
-                                CornerRadius="15,0,15,0" BorderThickness="2">
+                                CornerRadius="0" BorderThickness="2">
                         <Grid>
                             <AdornerDecorator>
                                 <ContentPresenter />

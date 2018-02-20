@@ -138,14 +138,26 @@
   <ItemGroup>
     <Compile Include="Modules\WeatherModule.cs" />
     <Compile Include="Interfaces\IWeatherViewModel.cs" />
+    <Compile Include="ViewModels\Day.cs" />
     <Compile Include="ViewModels\DTWeatherViewModel.cs" />
+    <Compile Include="ViewModels\Forecast.cs" />
+    <Compile Include="ViewModels\IconStrToPathConverter.cs" />
+    <Compile Include="ViewModels\IWeatherIcon.cs" />
+    <Compile Include="ViewModels\Night.cs" />
     <Compile Include="ViewModels\WeatherViewModel.cs" />
+    <Compile Include="Views\ForecastView.xaml.cs">
+      <DependentUpon>ForecastView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Weather.xaml.cs">
       <DependentUpon>Weather.xaml</DependentUpon>
     </Compile>
     <Compile Include="WeatherShell.xaml.cs">
       <DependentUpon>WeatherShell.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ForecastView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Weather.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

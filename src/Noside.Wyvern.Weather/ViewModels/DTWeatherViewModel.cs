@@ -19,10 +19,10 @@ namespace Noside.Wyvern.Weather.ViewModels
 		public DtWeatherViewModel() {
 			this.CityName = "Weather, NS";
 			this.Tempature = 32.5;
-			this.Conditions = "Sunny";
+			this.Icon = "Sunny";
 			this.FourDay = new ObservableCollection<Forecast>();
 			for (int i = 0; i < 4; i++) {
-				this.FourDay[i] = new Forecast {Weather = "Clear", Tempature = 103.9};
+				this.FourDay[i] = new Forecast {Icon = "Clear", High = 103.9, Low=-201};
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace Noside.Wyvern.Weather.ViewModels
 			set => this.SetProperty(ref this._cityName, value);
 		}
 
-		public string Conditions
+		public string Icon
 		{
 			get => this._conditions;
 			set => this.SetProperty(ref this._conditions, value);

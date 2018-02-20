@@ -15,6 +15,7 @@ using Noside.Wyvern.Common.Views;
 using Noside.Wyvern.Views;
 using Noside.Wyvern.Weather;
 using Noside.Wyvern.Weather.Modules;
+using Noside.Wyvern.Weather.ViewModels;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -63,6 +64,7 @@ namespace Noside.Wyvern {
 			this.Container.RegisterType<IGoogleApi, GoogleApi>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IWindowManager, WindowManager>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IWeatherClient, WeatherClient>(new ContainerControlledLifetimeManager(),new InjectionConstructor("5181017c5a062221", true));
+			this.Container.RegisterType<IWeatherIconLocator, WeatherIconLocator>(new ContainerControlledLifetimeManager());
 
 			ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(x =>
 			{

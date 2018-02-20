@@ -6,36 +6,38 @@
              mc:Ignorable="d" 
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:viewModels="clr-namespace:Noside.Wyvern.Weather.ViewModels"
+             xmlns:views="clr-namespace:Noside.Wyvern.Weather.Views"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="300" d:DesignWidth="300"
-             Height="450" Width="375" 
-             d:DataContext="{d:DesignInstance Type=viewModels:DtWeatherViewModel, IsDesignTimeCreatable=True}">
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <viewModels:IconStrToPathConverter x:Key="IconToPathConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding CityName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" />
-        <TextBlock Grid.Row="1" Text="{Binding Conditions, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72"/>
-        <TextBlock Grid.Row="2" Text="{Binding Tempature, StringFormat=\{0:F1\}&#186;}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" />
-        <ItemsControl Grid.Row="3" ItemsSource="{Binding FourDay}">
+        <TextBlock Text="{Binding CityName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" />
+        <ContentControl Grid.Row="1" Content="{Binding Icon, Converter={StaticResource IconToPathConverter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="2" Text="{Binding WeatherText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" />
+        <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="225,0,0,0">
+          
+            <TextBlock Text="{Binding High, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0\}&#186;}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+            <TextBlock Text="{Binding Low, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0\}&#186;}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+        </StackPanel>
+        <TextBlock x:Name="CurrentTempTextBlock" Grid.Row="3" Text="{Binding Tempature, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0\}&#186;}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="64" />
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding FourDay, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid />
+                    <UniformGrid Rows="1" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="{Binding Weather}"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Tempature}"/>
-                    </Grid>
+                    <views:ForecastView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

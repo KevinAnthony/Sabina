@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Brushes.xaml"/>
-        <ResourceDictionary Source="Paths.xaml"/>
-        <ResourceDictionary Source="Paths.xaml"/>
-        <ResourceDictionary Source="Styles.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Noside.Wyvern.Theme;component/Brushes.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Noside.Wyvern.Theme;component/Paths.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Noside.Wyvern.Theme;component/Weather.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Noside.Wyvern.Theme;component/Styles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
