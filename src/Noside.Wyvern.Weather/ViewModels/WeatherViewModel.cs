@@ -10,6 +10,7 @@ using CreativeGurus.Weather.Wunderground;
 using CreativeGurus.Weather.Wunderground.Models;
 using CreativeGurus.Weather.Wunderground.ResultModels;
 using Prism.Mvvm;
+using Forecast = Noside.Wyvern.Weather.Models.Forecast;
 
 #endregion
 
@@ -20,11 +21,14 @@ namespace Noside.Wyvern.Weather.ViewModels {
 		private readonly IWeatherClient _client;
 		private string _cityName;
 		private ObservableCollection<Forecast> _fourDay;
+		private double _high;
 		private string _icon;
+		private double _low;
 		private double _tempature;
 		private string _weatherText;
-		private double _high;
-		private double _low;
+		private double _windowLeft;
+
+		private double _windowTop;
 
 		#endregion
 
@@ -50,30 +54,39 @@ namespace Noside.Wyvern.Weather.ViewModels {
 			set => this.SetProperty(ref this._fourDay, value);
 		}
 
+		public double High {
+			get => this._high;
+			set => this.SetProperty(ref this._high, value);
+		}
+
 		public string Icon {
 			get => this._icon;
 			set => this.SetProperty(ref this._icon, value);
 		}
 
-		public string WeatherText
-		{
-			get => this._weatherText;
-			set => this.SetProperty(ref this._weatherText, value);
+		public double Low {
+			get => this._low;
+			set => this.SetProperty(ref this._low, value);
 		}
 
 		public double Tempature {
 			get => this._tempature;
 			set => this.SetProperty(ref this._tempature, value);
 		}
-		public double High
-		{
-			get => this._high;
-			set => this.SetProperty(ref this._high, value);
+
+		public string WeatherText {
+			get => this._weatherText;
+			set => this.SetProperty(ref this._weatherText, value);
 		}
-		public double Low
-		{
-			get => this._low;
-			set => this.SetProperty(ref this._low, value);
+
+		public double WindowLeft {
+			get => this._windowLeft;
+			set => this.SetProperty(ref this._windowLeft, value);
+		}
+
+		public double WindowTop {
+			get => this._windowTop;
+			set => this.SetProperty(ref this._windowTop, value);
 		}
 
 		#endregion
@@ -94,17 +107,17 @@ namespace Noside.Wyvern.Weather.ViewModels {
 				this.Icon = weatherResponse.CurrentObservation.Icon;
 				this.WeatherText = weatherResponse.CurrentObservation.Weather;
 			}));
-			var forcastResponse = await this._client.GetForecast10DayAsync(QueryType.GPS, new QueryOptions {Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
+			ForecastResponse forcastResponse = await this._client.GetForecast10DayAsync(QueryType.GPS, new QueryOptions {Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
 			while (forcastResponse?.Forecast == null) {
 				await Task.Delay(2500);
 				forcastResponse = await this._client.GetForecast10DayAsync(QueryType.GPS, new QueryOptions {Latitude = weatherResponse.CurrentObservation.DisplayLocation.Latitude, Longitude = weatherResponse.CurrentObservation.DisplayLocation.Longitude});
 			}
-			
+
 			await Application.Current.Dispatcher.BeginInvoke(new Action(() => {
 				this.High = forcastResponse.Forecast.SimpleForecast.ForecastDay[0].High.Fahrenheit ?? 0.0;
 				this.Low = forcastResponse.Forecast.SimpleForecast.ForecastDay[0].Low.Fahrenheit ?? 0.0;
-				foreach (var day in forcastResponse.Forecast.SimpleForecast.ForecastDay.Skip(1).Take(4)) {
-					var fc = new Forecast {
+				foreach (SimpleForecastDay day in forcastResponse.Forecast.SimpleForecast.ForecastDay.Skip(1).Take(4)) {
+					Forecast fc = new Forecast {
 						Icon = day.Icon,
 						High = day.High.Fahrenheit ?? 0.0,
 						Low = day.Low.Fahrenheit ?? 0.0,

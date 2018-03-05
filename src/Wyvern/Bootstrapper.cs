@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
@@ -11,11 +10,11 @@ using Noside.Wyvern.CoinCounter.Modules;
 using Noside.Wyvern.Common;
 using Noside.Wyvern.Common.Interfaces;
 using Noside.Wyvern.Common.ThirdParty;
-using Noside.Wyvern.Common.Views;
 using Noside.Wyvern.Views;
 using Noside.Wyvern.Weather;
+using Noside.Wyvern.Weather.Helpers;
+using Noside.Wyvern.Weather.Interfaces;
 using Noside.Wyvern.Weather.Modules;
-using Noside.Wyvern.Weather.ViewModels;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -28,12 +27,6 @@ namespace Noside.Wyvern {
 		protected override DependencyObject CreateShell() {
 			this._windowManager = ServiceLocator.Current.GetInstance<IWindowManager>();
 			var mainshell = this._windowManager.CreateShell<WyvernShell>();
-
-			var tb1 = ServiceLocator.Current.GetInstance<TitleBar>();
-			var tb2 = ServiceLocator.Current.GetInstance<TitleBar>();
-			if (tb1 == tb2) {
-				Debugger.Break();
-			}
 			return mainshell;
 		}
 

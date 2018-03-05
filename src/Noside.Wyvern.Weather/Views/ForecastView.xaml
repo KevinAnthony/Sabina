@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewModels="clr-namespace:Noside.Wyvern.Weather.ViewModels"
+             xmlns:converters="clr-namespace:Noside.Wyvern.Weather.Converters"
              mc:Ignorable="d" Margin="3"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <viewModels:IconStrToPathConverter x:Key="IconToPathConverter"/>
+        <converters:IconStrToPathConverter x:Key="IconToPathConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

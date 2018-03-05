@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Shapes;
+using Noside.Wyvern.Weather.Interfaces;
 
-namespace Noside.Wyvern.Weather.ViewModels {
+namespace Noside.Wyvern.Weather.Models {
 	public class Night : IWeatherIcon {
 		#region Fields
 

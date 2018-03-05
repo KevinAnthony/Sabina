@@ -1,6 +1,6 @@
 ﻿using System.Windows.Shapes;
 
-namespace Noside.Wyvern.Weather.ViewModels
+namespace Noside.Wyvern.Weather.Interfaces
 {
 	public interface IWeatherIcon
 	{

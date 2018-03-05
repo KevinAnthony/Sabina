@@ -136,14 +136,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IWeatherIconLocator.cs" />
+    <Compile Include="Helpers\WeatherIconLocator.cs" />
     <Compile Include="Modules\WeatherModule.cs" />
     <Compile Include="Interfaces\IWeatherViewModel.cs" />
-    <Compile Include="ViewModels\Day.cs" />
+    <Compile Include="Models\Day.cs" />
     <Compile Include="ViewModels\DTWeatherViewModel.cs" />
-    <Compile Include="ViewModels\Forecast.cs" />
-    <Compile Include="ViewModels\IconStrToPathConverter.cs" />
-    <Compile Include="ViewModels\IWeatherIcon.cs" />
-    <Compile Include="ViewModels\Night.cs" />
+    <Compile Include="Models\Forecast.cs" />
+    <Compile Include="Converters\IconStrToPathConverter.cs" />
+    <Compile Include="Interfaces\IWeatherIcon.cs" />
+    <Compile Include="Models\Night.cs" />
     <Compile Include="ViewModels\WeatherViewModel.cs" />
     <Compile Include="Views\ForecastView.xaml.cs">
       <DependentUpon>ForecastView.xaml</DependentUpon>

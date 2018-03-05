@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:mvvm="http://prismlibrary.com/"
-             xmlns:viewModels="clr-namespace:Noside.Wyvern.Weather.ViewModels"
              xmlns:views="clr-namespace:Noside.Wyvern.Weather.Views"
+             xmlns:converters="clr-namespace:Noside.Wyvern.Weather.Converters"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <viewModels:IconStrToPathConverter x:Key="IconToPathConverter"/>
+        <converters:IconStrToPathConverter x:Key="IconToPathConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

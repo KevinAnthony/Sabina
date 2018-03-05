@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Noside.Wyvern.Weather.Models;
 
 namespace Noside.Wyvern.Weather.ViewModels
 {
