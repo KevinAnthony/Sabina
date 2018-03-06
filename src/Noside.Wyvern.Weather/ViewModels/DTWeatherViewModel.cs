@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Noside.Wyvern.Weather.Interfaces;
 using Noside.Wyvern.Weather.Models;
 using Prism.Mvvm;
 
@@ -21,6 +22,7 @@ namespace Noside.Wyvern.Weather.ViewModels
 			for (int i = 0; i < 4; i++) {
 				this.FourDay[i] = new Forecast {Icon = "Clear", High = 103.9, Low=-201};
 			}
+
 		}
 
 		public string CityName

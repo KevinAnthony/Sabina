@@ -9,6 +9,7 @@ using System.Windows;
 using CreativeGurus.Weather.Wunderground;
 using CreativeGurus.Weather.Wunderground.Models;
 using CreativeGurus.Weather.Wunderground.ResultModels;
+using Noside.Wyvern.Weather.Interfaces;
 using Prism.Mvvm;
 using Forecast = Noside.Wyvern.Weather.Models.Forecast;
 
@@ -26,9 +27,6 @@ namespace Noside.Wyvern.Weather.ViewModels {
 		private double _low;
 		private double _tempature;
 		private string _weatherText;
-		private double _windowLeft;
-
-		private double _windowTop;
 
 		#endregion
 
@@ -77,16 +75,6 @@ namespace Noside.Wyvern.Weather.ViewModels {
 		public string WeatherText {
 			get => this._weatherText;
 			set => this.SetProperty(ref this._weatherText, value);
-		}
-
-		public double WindowLeft {
-			get => this._windowLeft;
-			set => this.SetProperty(ref this._windowLeft, value);
-		}
-
-		public double WindowTop {
-			get => this._windowTop;
-			set => this.SetProperty(ref this._windowTop, value);
 		}
 
 		#endregion

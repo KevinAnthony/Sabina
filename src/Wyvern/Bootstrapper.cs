@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region Using
+
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
@@ -9,43 +11,28 @@ using Noside.Wyvern.CoinCounter.Models;
 using Noside.Wyvern.CoinCounter.Modules;
 using Noside.Wyvern.Common;
 using Noside.Wyvern.Common.Interfaces;
+using Noside.Wyvern.Common.Modules;
 using Noside.Wyvern.Common.ThirdParty;
 using Noside.Wyvern.Views;
-using Noside.Wyvern.Weather;
 using Noside.Wyvern.Weather.Helpers;
 using Noside.Wyvern.Weather.Interfaces;
 using Noside.Wyvern.Weather.Modules;
+using Noside.Wyvern.Weather.Views;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Unity;
-using Coin = Noside.Wyvern.CoinCounter.Models.Coin;
+
+#endregion
 
 namespace Noside.Wyvern {
-	class Bootstrapper : UnityBootstrapper {
+	internal class Bootstrapper : UnityBootstrapper {
+		#region Fields
+
 		private IWindowManager _windowManager;
 
-		protected override DependencyObject CreateShell() {
-			this._windowManager = ServiceLocator.Current.GetInstance<IWindowManager>();
-			var mainshell = this._windowManager.CreateShell<WyvernShell>();
-			return mainshell;
-		}
+		#endregion
 
-		protected override void InitializeShell() {
-			Application.Current.MainWindow = (Window) this.Shell;
-			Application.Current.MainWindow?.Show();
-			var weathershell = this._windowManager.CreateShell<WeatherShell>();
-			weathershell.Show();
-		}
-		
-		protected override void ConfigureModuleCatalog() {
-			var catalog = (ModuleCatalog) this.ModuleCatalog;
-			catalog.AddModule(typeof(Common.Modules.TitleBarModule));
-
-			catalog.AddModule(typeof(CoinViewModule));
-			catalog.AddModule(typeof(AddCoinswModule));
-			catalog.AddModule(typeof(RollCoinsModule));
-			catalog.AddModule(typeof(WeatherModule));
-		}
+		#region Methods
 
 		protected override void ConfigureContainer() {
 			base.ConfigureContainer();
@@ -56,20 +43,44 @@ namespace Noside.Wyvern {
 			this.Container.RegisterType<ICoinDatabase, CoinGoogleSheetsDatabase>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IGoogleApi, GoogleApi>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IWindowManager, WindowManager>(new ContainerControlledLifetimeManager());
-			this.Container.RegisterType<IWeatherClient, WeatherClient>(new ContainerControlledLifetimeManager(),new InjectionConstructor("5181017c5a062221", true));
+			this.Container.RegisterType<IWeatherClient, WeatherClient>(new ContainerControlledLifetimeManager(), new InjectionConstructor("5181017c5a062221", true));
 			this.Container.RegisterType<IWeatherIconLocator, WeatherIconLocator>(new ContainerControlledLifetimeManager());
 
-			ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(x =>
-			{
-				var viewName = x.FullName;
+			ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(x => {
+				string viewName = x.FullName;
 				viewName = viewName.Replace(".Views.", ".ViewModels.");
-				var viewAssemblyName = x.GetTypeInfo().Assembly.FullName;
-				var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
-				var viewModelName = string.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName);
-				var type = Type.GetType(viewModelName);
+				string viewAssemblyName = x.GetTypeInfo().Assembly.FullName;
+				string suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
+				string viewModelName = string.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName);
+				Type type = Type.GetType(viewModelName);
 				return type;
 			});
-			ViewModelLocationProvider.SetDefaultViewModelFactory(type => Container.Resolve(type));
+			ViewModelLocationProvider.SetDefaultViewModelFactory(type => this.Container.Resolve(type));
 		}
+
+		protected override void ConfigureModuleCatalog() {
+			ModuleCatalog catalog = (ModuleCatalog) this.ModuleCatalog;
+			catalog.AddModule(typeof(TitleBarModule));
+
+			catalog.AddModule(typeof(CoinViewModule));
+			catalog.AddModule(typeof(AddCoinswModule));
+			catalog.AddModule(typeof(RollCoinsModule));
+			catalog.AddModule(typeof(WeatherModule));
+		}
+
+		protected override DependencyObject CreateShell() {
+			this._windowManager = ServiceLocator.Current.GetInstance<IWindowManager>();
+			Window mainshell = this._windowManager.CreateShell<WyvernShell>();
+			return mainshell;
+		}
+
+		protected override void InitializeShell() {
+			Application.Current.MainWindow = (Window) this.Shell;
+			Application.Current.MainWindow?.Show();
+			Window weathershell = this._windowManager.CreateShell<WeatherShell>();
+			weathershell.Show();
+		}
+
+		#endregion
 	}
 }

@@ -146,6 +146,7 @@
     <Compile Include="Converters\IconStrToPathConverter.cs" />
     <Compile Include="Interfaces\IWeatherIcon.cs" />
     <Compile Include="Models\Night.cs" />
+    <Compile Include="ViewModels\WeatherShellViewModel.cs" />
     <Compile Include="ViewModels\WeatherViewModel.cs" />
     <Compile Include="Views\ForecastView.xaml.cs">
       <DependentUpon>ForecastView.xaml</DependentUpon>
@@ -153,7 +154,7 @@
     <Compile Include="Views\Weather.xaml.cs">
       <DependentUpon>Weather.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeatherShell.xaml.cs">
+    <Compile Include="Views\WeatherShell.xaml.cs">
       <DependentUpon>WeatherShell.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ForecastView.xaml">
@@ -164,7 +165,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WeatherShell.xaml">
+    <Page Include="Views\WeatherShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

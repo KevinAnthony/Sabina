@@ -10,12 +10,9 @@ using Noside.Wyvern.Common;
 
 namespace Noside.Wyvern.Views {
 	/// <summary>
-	///     Interaction logic for WyvernShell.xaml
+	///     Interaction logic for WyvernBaseShell.xaml
 	/// </summary>
 	public partial class WyvernShell {
-		#region Fields
-
-		#endregion
 
 		#region Constructors and Destructors
 
@@ -24,26 +21,5 @@ namespace Noside.Wyvern.Views {
 		}
 
 		#endregion
-
-		#region Methods
-		//TODO Move to VM
-		private void OnDragMouseDown(object sender, MouseButtonEventArgs e) {
-			if (e.LeftButton != MouseButtonState.Pressed) return;
-			this.DragMove();
-		}
-
-
-		private async void OnWindowLoaded(object sender, RoutedEventArgs e) {
-			Window wnd = (Window) sender;
-			GlassHelper.ExtendGlassFrame(wnd);
-		}
-
-		#endregion
-
-//		private void Timer_Elapsed(object sender, ElapsedEventArgs e) {
-//			var uri = theme ? new Uri("Noside.Wyvern.Theme;component/Orange.xaml", UriKind.Relative) : new Uri("Noside.Wyvern.Theme;component/Blue.xaml", UriKind.Relative);
-//			theme = !theme;
-//			this._eventAggregator.GetEvent<ChangeThemeEvent>().Publish(uri);
-//		}
 	}
 }

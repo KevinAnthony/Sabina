@@ -195,7 +195,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.en-US.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WyvernViewModel.cs" />
+    <Compile Include="ViewModels\WyvernShellViewModel.cs" />
     <Compile Include="Views\WyvernShell.xaml.cs">
       <DependentUpon>WyvernShell.xaml</DependentUpon>
       <SubType>Code</SubType>

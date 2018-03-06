@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Noside.Wyvern.Weather.Models;
 
-namespace Noside.Wyvern.Weather.ViewModels
+namespace Noside.Wyvern.Weather.Interfaces
 {
 	internal interface IWeatherViewModel
 	{
