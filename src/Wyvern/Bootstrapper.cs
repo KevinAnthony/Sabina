@@ -40,6 +40,7 @@ namespace Noside.Wyvern {
 			this.Container.RegisterType<ICoin, Coin>(new PerResolveLifetimeManager());
 
 			/* For the Lifetime*/
+			this.Container.RegisterType<ISettings, Settings>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<ICoinDatabase, CoinGoogleSheetsDatabase>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IGoogleApi, GoogleApi>(new ContainerControlledLifetimeManager());
 			this.Container.RegisterType<IWindowManager, WindowManager>(new ContainerControlledLifetimeManager());
@@ -57,7 +58,7 @@ namespace Noside.Wyvern {
 			});
 			ViewModelLocationProvider.SetDefaultViewModelFactory(type => this.Container.Resolve(type));
 		}
-
+		
 		protected override void ConfigureModuleCatalog() {
 			ModuleCatalog catalog = (ModuleCatalog) this.ModuleCatalog;
 			catalog.AddModule(typeof(TitleBarModule));
