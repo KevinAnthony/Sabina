@@ -190,11 +190,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="IShellService.cs" />
     <Compile Include="Properties\Resources.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.en-US.resx</DependentUpon>
     </Compile>
+    <Compile Include="ShellService.cs" />
     <Compile Include="ViewModels\WyvernShellViewModel.cs" />
     <Compile Include="Views\WyvernShell.xaml.cs">
       <DependentUpon>WyvernShell.xaml</DependentUpon>

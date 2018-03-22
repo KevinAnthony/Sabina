@@ -117,11 +117,11 @@
     <Compile Include="GlassHelper.cs" />
     <Compile Include="Interfaces\ICoin.cs" />
     <Compile Include="Interfaces\ICoinDatabase.cs" />
-    <Compile Include="Interfaces\IWindowManager.cs" />
+    <Compile Include="Interfaces\IShellService.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ShellService.cs" />
     <Compile Include="Views\WyvernBase.cs" />
-    <Compile Include="WindowManager.cs" />
     <Compile Include="Modules\TitleBarModule.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

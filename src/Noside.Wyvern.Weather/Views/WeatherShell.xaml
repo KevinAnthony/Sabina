@@ -15,7 +15,7 @@
             <RowDefinition Height="32" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ContentControl Grid.Row="0" Grid.Column="0" mvvm:RegionManager.RegionName="TitleBarArea2" />
+        <ContentControl Grid.Row="0" Grid.Column="0" mvvm:RegionManager.RegionName="TitleBarArea" />
         <ContentControl Grid.Row="1" Grid.Column="0" mvvm:RegionManager.RegionName="WeatherWidgetArea" />
     </Grid>
 </base:WyvernBase>

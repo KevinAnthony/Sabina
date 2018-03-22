@@ -25,7 +25,7 @@ namespace Noside.Wyvern.Common.Modules {
 		public void Initialize()
 		{
 			this._regionManager.RegisterViewWithRegion("TitleBarArea", typeof(TitleBar));
-			this._regionManager.RegisterViewWithRegion("TitleBarArea2", typeof(TitleBar));
+//			this._regionManager.RegisterViewWithRegion("TitleBarArea2", typeof(TitleBar));
 		}
 
 		#endregion

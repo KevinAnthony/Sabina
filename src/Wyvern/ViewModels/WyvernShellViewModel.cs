@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using Noside.Wyvern.Common;
 using Noside.Wyvern.Theme;
+using Noside.Wyvern.Weather.Views;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -27,7 +28,7 @@ namespace Noside.Wyvern.ViewModels {
 
 		#region Constructors and Destructors
 
-		public WyvernShellViewModel(IEventAggregator eventAggregator, ISettings settings) {
+		public WyvernShellViewModel(IEventAggregator eventAggregator,IShellService shellService, ISettings settings) {
 			eventAggregator.GetEvent<ChangeThemeEvent>().Subscribe(this.OnThemeChanged);
 			this._settings = settings;
 			var location = this._settings.GetWindowLocation(Id);
@@ -41,6 +42,7 @@ namespace Noside.Wyvern.ViewModels {
 				this._settings.SetWindowLocation(Id, new Point(this.WindowLeft, this.WindowTop));
 				this._settings.Save();
 			};
+			shellService.ShowShell<WeatherShell>();
 		}
 
 		#endregion
